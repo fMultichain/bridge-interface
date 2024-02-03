@@ -13,7 +13,7 @@ type MetaHeaderProps = {
 // We try to get it dynamically from Vercel, but we default to relative path.
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/` : "/";
 
-export const MetaHeader = ({
+const MetaHeader = ({
   title = "fMULTI Bridge | lz-fMULTI",
   description = "Bridge lz-fMULTI Crosschain",
   image = "thumbnail.png",
@@ -51,3 +51,5 @@ export const MetaHeader = ({
     </Head>
   );
 };
+
+export default MetaHeader;
