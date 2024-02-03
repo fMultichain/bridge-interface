@@ -1,6 +1,6 @@
-import { ConnectorUpdate } from "@web3-react/types"
-import { AbstractConnector } from "@web3-react/abstract-connector"
-import invariant from "tiny-invariant"
+import { ConnectorUpdate } from "@web3-react/types";
+import { AbstractConnector } from "@web3-react/abstract-connector";
+import invariant from "tiny-invariant";
 
 interface NetworkConnectorArguments {
   urls: { [chainId: number]: string };
@@ -12,7 +12,10 @@ type AsyncSendable = {
   isMetaMask?: boolean;
   host?: string;
   path?: string;
-  sendAsync?: (request: any, callback: (error: any, response: any) => void) => void;
+  sendAsync?: (
+    request: any,
+    callback: (error: any, response: any) => void
+  ) => void;
   send?: (request: any, callback: (error: any, response: any) => void) => void;
 };
 
@@ -60,16 +63,25 @@ class MiniRpcProvider implements AsyncSendable {
     try {
       response = await fetch(this.url, {
         method: "POST",
-        headers: { "content-type": "application/json", accept: "application/json" },
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+        },
         body: JSON.stringify(batch.map((item) => item.request)),
       });
     } catch (error) {
-      batch.forEach(({ reject }) => reject(new Error("Failed to send batch call")));
+      batch.forEach(({ reject }) =>
+        reject(new Error("Failed to send batch call"))
+      );
       return;
     }
 
     if (!response.ok) {
-      batch.forEach(({ reject }) => reject(new RequestError(`${response.status}: ${response.statusText}`, -32000)));
+      batch.forEach(({ reject }) =>
+        reject(
+          new RequestError(`${response.status}: ${response.statusText}`, -32000)
+        )
+      );
       return;
     }
 
@@ -77,7 +89,9 @@ class MiniRpcProvider implements AsyncSendable {
     try {
       json = await response.json();
     } catch (error) {
-      batch.forEach(({ reject }) => reject(new Error("Failed to parse JSON response")));
+      batch.forEach(({ reject }) =>
+        reject(new Error("Failed to parse JSON response"))
+      );
       return;
     }
     const byKey = batch.reduce<{ [id: number]: BatchItem }>((memo, current) => {
@@ -92,28 +106,47 @@ class MiniRpcProvider implements AsyncSendable {
       } = byKey[result.id];
       if (resolve) {
         if ("error" in result) {
-          reject(new RequestError(result?.error?.message, result?.error?.code, result?.error?.data));
+          reject(
+            new RequestError(
+              result?.error?.message,
+              result?.error?.code,
+              result?.error?.data
+            )
+          );
         } else if ("result" in result) {
           resolve(result.result);
         } else {
-          reject(new RequestError(`Received unexpected JSON-RPC response to ${method} request.`, -32000, result));
+          reject(
+            new RequestError(
+              `Received unexpected JSON-RPC response to ${method} request.`,
+              -32000,
+              result
+            )
+          );
         }
       }
     }
   };
 
   public readonly sendAsync = (
-    request: { jsonrpc: "2.0"; id: number | string | null; method: string; params?: any },
-    callback: (error: any, response: any) => void,
+    request: {
+      jsonrpc: "2.0";
+      id: number | string | null;
+      method: string;
+      params?: any;
+    },
+    callback: (error: any, response: any) => void
   ): void => {
     this.request(request.method, request.params)
-      .then((result) => callback(null, { jsonrpc: "2.0", id: request.id, result }))
+      .then((result) =>
+        callback(null, { jsonrpc: "2.0", id: request.id, result })
+      )
       .catch((error) => callback(error, null));
   };
 
   public readonly request = async (
     method: string | { method: string; params: unknown[] },
-    params?: any,
+    params?: any
   ): Promise<unknown> => {
     if (typeof method !== "string") {
       return this.request(method.method, method.params);
@@ -133,7 +166,8 @@ class MiniRpcProvider implements AsyncSendable {
         reject,
       });
     });
-    this.batchTimeoutId = this.batchTimeoutId ?? setTimeout(this.clearBatch, this.batchWaitTimeMs);
+    this.batchTimeoutId =
+      this.batchTimeoutId ?? setTimeout(this.clearBatch, this.batchWaitTimeMs);
     return promise;
   };
 }
@@ -144,12 +178,22 @@ export class NetworkConnector extends AbstractConnector {
   private currentChainId: number;
 
   constructor({ urls, defaultChainId }: NetworkConnectorArguments) {
-    invariant(defaultChainId || Object.keys(urls).length === 1, "defaultChainId is a required argument with >1 url");
-    super({ supportedChainIds: Object.keys(urls).map((k): number => Number(k)) });
+    invariant(
+      defaultChainId || Object.keys(urls).length === 1,
+      "defaultChainId is a required argument with >1 url"
+    );
+    super({
+      supportedChainIds: Object.keys(urls).map((k): number => Number(k)),
+    });
 
     this.currentChainId = defaultChainId || Number(Object.keys(urls)[0]);
-    this.providers = Object.keys(urls).reduce<{ [chainId: number]: MiniRpcProvider }>((accumulator, chainId) => {
-      accumulator[Number(chainId)] = new MiniRpcProvider(Number(chainId), urls[Number(chainId)]);
+    this.providers = Object.keys(urls).reduce<{
+      [chainId: number]: MiniRpcProvider;
+    }>((accumulator, chainId) => {
+      accumulator[Number(chainId)] = new MiniRpcProvider(
+        Number(chainId),
+        urls[Number(chainId)]
+      );
       return accumulator;
     }, {});
   }
@@ -159,7 +203,11 @@ export class NetworkConnector extends AbstractConnector {
   }
 
   public async activate(): Promise<ConnectorUpdate> {
-    return { provider: this.providers[this.currentChainId], chainId: this.currentChainId, account: null };
+    return {
+      provider: this.providers[this.currentChainId],
+      chainId: this.currentChainId,
+      account: null,
+    };
   }
 
   public async getProvider(): Promise<MiniRpcProvider> {

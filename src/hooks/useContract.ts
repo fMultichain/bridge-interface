@@ -31,24 +31,38 @@ import { Contract } from "@ethersproject/contracts";
 // }
 
 // returns null on errors
-export function useContract(address: string | undefined, ABI: any, withSignerIfPossible = true): Contract | null {
-  const { library, account } = useActiveWeb3React()
+export function useContract(
+  address: string | undefined,
+  ABI: any,
+  withSignerIfPossible = true
+): Contract | null {
+  const { library, account } = useActiveWeb3React();
 
   return useMemo(() => {
-    if (!address || !ABI || !library) return null
+    if (!address || !ABI || !library) return null;
     try {
-      return getContract(address, ABI, library, withSignerIfPossible && account ? account : undefined)
+      return getContract(
+        address,
+        ABI,
+        library,
+        withSignerIfPossible && account ? account : undefined
+      );
     } catch (error) {
-      console.error('Failed to get contract', error)
-      return null
+      console.error("Failed to get contract", error);
+      return null;
     }
-  }, [address, ABI, library, withSignerIfPossible, account])
+  }, [address, ABI, library, withSignerIfPossible, account]);
 }
 
 // account is optional
-export function getContract(address: string, ABI: any, library: Web3Provider, account?: string): Contract {
+export function getContract(
+  address: string,
+  ABI: any,
+  library: Web3Provider,
+  account?: string
+): Contract {
   if (!isAddress(address) || address === AddressZero) {
-    throw Error(`Invalid 'address' parameter '${address}'.`)
+    throw Error(`Invalid 'address' parameter '${address}'.`);
   }
-  return new Contract(address, ABI, getProviderOrSigner(library, account))
+  return new Contract(address, ABI, getProviderOrSigner(library, account));
 }

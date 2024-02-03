@@ -11,6 +11,7 @@
         "endOfLine": "auto"
       }
     ],
+    "@typescript-eslint/prefer-as-const": ["off"],
     "@next/next/no-page-custom-font": ["off"]
   }
 }

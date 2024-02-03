@@ -1,5 +1,5 @@
-import React from "react"
-import Head from "next/head"
+import React from "react";
+import Head from "next/head";
 
 type MetaHeaderProps = {
   title?: string;
@@ -11,7 +11,9 @@ type MetaHeaderProps = {
 
 // Images must have an absolute path to work properly on Twitter.
 // We try to get it dynamically from Vercel, but we default to relative path.
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/` : "/";
+const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/`
+  : "/";
 
 const MetaHeader = ({
   title = "fMULTI Bridge | lz-fMULTI",

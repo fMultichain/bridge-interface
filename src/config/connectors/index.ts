@@ -1,1 +1,1 @@
-export const connectorLocalStorageKey = "connectorId"
+export const connectorLocalStorageKey = "connectorId";

@@ -11,7 +11,12 @@ const priceFormatter = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 2,
 });
 
-export const formatNumber = (number: any, usd = false, scale = true, decimals = 0) => {
+export const formatNumber = (
+  number: any,
+  usd = false,
+  scale = true,
+  decimals = 0
+) => {
   if (isNaN(number) || number === "" || number === undefined) {
     return usd ? "$0.00" : "0";
   }
@@ -36,7 +41,9 @@ export const formatNumber = (number: any, usd = false, scale = true, decimals = 
     return (
       (num > 1000 ? "" : "-") +
       (usd ? "$" : "") +
-      Number(parseFloat(String(Math.abs(num))).toFixed(decimals)).toLocaleString()
+      Number(
+        parseFloat(String(Math.abs(num))).toFixed(decimals)
+      ).toLocaleString()
     );
   }
 
