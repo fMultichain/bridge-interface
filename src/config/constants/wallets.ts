@@ -2,12 +2,12 @@ import { ChainId } from "./chainId";
 import { AbstractConnector } from "@web3-react/abstract-connector";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { NetworkConnector } from "config/connectors/NetworkConnector";
-import RPC from "./rpc";
+import { RPC } from "./rpc";
 
 const supportedChainIds = Object.values(ChainId) as number[];
 
 export const network = new NetworkConnector({
-  defaultChainId: ChainId.ETHEREUM,
+  defaultChainId: ChainId.FANTOM,
   urls: RPC,
 });
 

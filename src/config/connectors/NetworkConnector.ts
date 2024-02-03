@@ -1,6 +1,6 @@
-import { ConnectorUpdate } from "@web3-react/types";
-import { AbstractConnector } from "@web3-react/abstract-connector";
-import invariant from "tiny-invariant";
+import { ConnectorUpdate } from "@web3-react/types"
+import { AbstractConnector } from "@web3-react/abstract-connector"
+import invariant from "tiny-invariant"
 
 interface NetworkConnectorArguments {
   urls: { [chainId: number]: string };
@@ -30,15 +30,10 @@ interface BatchItem {
 
 class MiniRpcProvider implements AsyncSendable {
   public readonly isMetaMask: false = false;
-
   public readonly chainId: number;
-
   public readonly url: string;
-
   public readonly host: string;
-
   public readonly path: string;
-
   public readonly batchWaitTimeMs: number;
 
   private nextId = 1;

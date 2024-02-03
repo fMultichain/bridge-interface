@@ -1,6 +1,6 @@
 import { ChainId } from "./chainId";
 
-const RPC = {
+export const RPC = {
   [ChainId.ETHEREUM]: "https://api.sushirelay.com/v1",
   // [ChainId.ETHEREUM]: 'https://eth-mainnet.alchemyapi.io/v2/HNQXSfiUcPjfpDBQaWYXjqlhTr1cEY9c',
   // [ChainId.MAINNET]: 'https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC',
@@ -32,9 +32,16 @@ const RPC = {
   //   [ChainId.PALM]: "https://palm-mainnet.infura.io/v3/da5fbfafcca14b109e2665290681e267",
   //   [ChainId.FUSE]: "https://rpc.fuse.io",
   //   [ChainId.CELO]: "https://forno.celo.org",
-  //   [ChainId.MOONRIVER]: "https://rpc.moonriver.moonbeam.network",
   //   [ChainId.TELOS]: "https://mainnet.telos.net/evm",
   //   [ChainId.MOONBEAM]: "https://rpc.api.moonbeam.network",
 };
 
-export default RPC;
+export const RPCS = {
+  [ChainId.ETHEREUM]: ["https://api.sushirelay.com/v1", 'https://eth-mainnet.alchemyapi.io/v2/HNQXSfiUcPjfpDBQaWYXjqlhTr1cEY9c', 'https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC'],
+  [ChainId.BASE]: 'https://rpc.ankr.com/base',
+  [ChainId.FANTOM]: ["https://rpc.ankr.com/fantom", "https://rpcapi.fantom.network"],
+  [ChainId.MATIC]: ["https://rpc.ankr.com/polygon", "https://polygon-rpc.com"],
+  [ChainId.BSC]: "https://bsc-dataseed.binance.org/",
+  [ChainId.AVALANCHE]: ["https://rpc.ankr.com/avalanche", "https://api.avax.network/ext/bc/C/rpc"],
+  [ChainId.ARBITRUM]: "https://arb1.arbitrum.io/rpc",
+};
