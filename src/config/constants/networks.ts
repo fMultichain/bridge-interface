@@ -21,6 +21,13 @@ export const ChainColor = {
   [ChainId.MATIC]: '#8247E5',
 }
 
+export enum ChainName {
+  FTM = 250,
+  BASE = 8453,
+  ARB = 42161,
+  AVAX = 43114,
+}
+
 export const ChainLogo = {
   [ChainId.ETHEREUM]: '/images/networks/ethereum-white.svg',
   [ChainId.FANTOM]: '/images/networks/fantom-white.svg',
