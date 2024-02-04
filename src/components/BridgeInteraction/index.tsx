@@ -1,47 +1,15 @@
 import { useState } from "react";
-// import { CopyIcon } from "./assets/CopyIcon";
-// import { DiamondIcon } from "./assets/DiamondIcon";
-// import { HareIcon } from "./assets/HareIcon";
-// import { JSBI } from "@sushiswap/core-sdk";
-// import { readContract, writeContract } from "@wagmi/core";
-// import { getPayload } from "~~/functions/getPayload";
-// import { getParameters } from "~~/functions/getParameters";
-// import { encodeAbiParameters, encodePacked, parseGwei } from "viem";
-// import { useAccount, useChainId } from "wagmi";
-// useFeeData
-// import { encodeAbiParameters, encodePacked } from "viem";
-// import { encodeFunctionData } from 'viem'
-// import { parseEther } from 'viem'
-// import Web3 from "web3";
+
 import {
-  ABI_ENDPOINT,
-  ABI_LZFMULTI,
   ChainId,
   ChainName,
-  ENDPOINT_ADDRESS,
   ENDPOINT_ID,
-  LZFMULTI_ADDRESS,
+  // LZFMULTI_ADDRESS,
 } from "config/constants";
 import { formatNumber } from "functions/formatNumber";
-// import { getBridgeData } from "~~/functions/getBridgeData";
 // import { useTokenBalance } from "hooks/useTokenBalance";
-import Web3 from "web3";
 import useActiveWeb3React from "@/hooks/useActiveWeb3React";
-
-// import getGasPrice from "viem";
-// import { wagmiConfig } from "~~/services/web3/wagmiConfig";
-
-// import { traverseThis } from "~~/functions/traverseChains";
-// import { ChainMap } from "~~/types/ChainMap";
-// import { wagmiConfig } from "~~/services/web3/wagmiConfig";
-
-// type TraverseProps = {
-//   account: any;
-//   amount: string | number;
-//   toChain: ChainId;
-//   fromChain: ChainId;
-//   className?: string;
-// };
+import traverseChains from "@/functions/traverseChains";
 
 export const BridgeInteraction = () => {
   const { account, chainId } = useActiveWeb3React();
@@ -54,8 +22,8 @@ export const BridgeInteraction = () => {
   ].filter((chain: ChainId) => chain !== fromChain);
   const [toChain, setToChain] = useState(toChains[0]);
   const chains = toChains.filter((chain: ChainId) => chain !== toChain);
-  const formattedBalance = 0; // useTokenBalance(account, LZFMULTI_ADDRESS[fromChain]);
-
+  // const formattedBalance = useTokenBalance(account, LZFMULTI_ADDRESS[fromChain]) ?? "0"
+  const formattedBalance = 0
   const balance = Number(formattedBalance) * 1e18;
 
   const ChainSelector = () => {
@@ -110,104 +78,79 @@ export const BridgeInteraction = () => {
     );
   };
 
-  const handleTraverseThis = async (
-    amount: number,
-    toChain: ChainId,
-    fromChain: ChainId
-  ) => {
-    // web3
-    // todo: verify provider works.
-    // const provider = new Web3(Web3.givenProvider);
-    const provider = new Web3(window.ethereum);
-    const web3 = new Web3(provider);
+  // const handleTraverseThis = async (account: any, amount: number, toChain: ChainId, fromChain: ChainId) => {
+  //   const web3 = new Web3(window.ethereum);
 
-    // Get account of the connected wallet (refresh)
-    const accounts = await web3.eth.getAccounts();
-    const selectedAccount = accounts[0];
+  //   // Get account of the connected wallet (refresh)
+  //   // console.log('accounts: %s', accounts[0]);
+  //   console.log("account: %s", account);
 
-    // set contracts
-    const endpointContract = await new web3.eth.Contract(
-      ABI_ENDPOINT,
-      ENDPOINT_ADDRESS[toChain]
-    );
-    // todo: verify LZFMULTI_ADDRESS[toChain] is correct.
-    const tokenContract = await new web3.eth.Contract(
-      ABI_LZFMULTI,
-      LZFMULTI_ADDRESS[toChain]
-    );
+  //   // set contracts
+  //   const endpointContract = await new web3.eth.Contract(ABI_ENDPOINT, ENDPOINT_ADDRESS[fromChain]);
+  //   console.log("Endpoint Contract: %s", ENDPOINT_ADDRESS[fromChain]);
+  //   // todo: verify LZFMULTI_ADDRESS[fromChain] is correct.
+  //   const tokenContract = await new web3.eth.Contract(ABI_LZFMULTI, LZFMULTI_ADDRESS[fromChain]);
 
-    // bytes to send
-    // const payload = web3.eth.abi.encodeParameters(["address", "uint256"], [selectedAccount, Number(amount)]);
-    const payload = web3.eth.abi.encodeParameters(
-      ["address", "uint256"],
-      [selectedAccount, Number(0)]
-    );
-    console.log("The payload is", payload);
-    const version = 1;
+  //   // bytes to send
+  //   const payload = web3.eth.abi.encodeParameters(["address", "uint256"], [account, amount]);
+  //   console.log("The payload is", payload);
+  //   const version = 1;
 
-    // gas required to do transaction on destination chain.
-    const gas = await tokenContract.methods.currentLZGas().call();
-    if (!gas) {
-      console.log(
-        "currentLZGas().call() from",
-        LZFMULTI_ADDRESS[fromChain],
-        "failed"
-      );
-    }
-    console.log("Current LZ Gas from contract is", gas);
+  //   console.log("destination chain: %s", toChain);
 
-    // this is the adapter settings for L0
-    const adapterParams = web3.utils.encodePacked(
-      { value: version, type: "uint16" },
-      { value: gas, type: "uint256" }
-    );
-    console.log("Adapter Params is", adapterParams);
+  //   // gas required to do transaction on destination chain
+  //   const gas = 250000; // (await tokenContract.methods.currentLZGas().call()) ?? 250000;
+  //   if (!gas) {
+  //     console.log("currentLZGas().call() from", LZFMULTI_ADDRESS[fromChain], "failed");
+  //   }
+  //   console.log("Current LZ Gas from contract is", gas);
 
-    // this is the payable amount to send
-    const fees = await endpointContract.methods
-      .estimateFees(
-        ENDPOINT_ID[toChain],
-        LZFMULTI_ADDRESS[toChain],
-        payload,
-        false,
-        adapterParams
-      )
-      .call();
-    if (!fees) {
-      console.log(
-        "estimateFees().call() from",
-        ENDPOINT_ADDRESS[toChain],
-        "failed"
-      );
-    }
-    console.log("Estimated fees are", fees);
+  //   // this is the adapter settings for L0
+  //   const adapterParams = web3.utils.encodePacked(
+  //     { value: version, type: "uint16" },
+  //     { value: gas, type: "uint256" },
+  //   );
+  //   console.log("Adapter Params is", adapterParams);
 
-    // current gas estimate
-    let estimatedGas;
-    await web3.eth.getGasPrice().then((result: any) => {
-      console.log("Estimated gas is", web3.utils.fromWei(result, "ether"));
-      estimatedGas = result;
-    });
+  //   // this is the payable amount to send
+  //   const amountToSend = await endpointContract.methods
+  //     .estimateFees(ENDPOINT_ID[fromChain], LZFMULTI_ADDRESS[fromChain], payload, false, adapterParams)
+  //     .call();
 
-    // the transaction
-    const value = await tokenContract.methods
-      .traverseChains(ENDPOINT_ID[fromChain], amount)
-      .send({
-        from: account,
-        gasPrice: estimatedGas ? estimatedGas : "0",
-        gas: gas ? web3.utils.fromWei(gas.toString(), "wei") : "0",
-        value: fees ? fees[0] : "0",
-      })
-      .on("transactionHash", function (hash: any) {
-        console.log(hash);
-      });
-    if (!value) {
-      console.log("traverseChains().send() from", account, "failed");
-    }
-  };
+  //   console.log("amountToSend is %s", amountToSend);
+
+  //   if (!amountToSend) {
+  //     console.log("estimateFees().call() from", ENDPOINT_ADDRESS[fromChain], "failed");
+  //   }
+  //   console.log("Estimated fees are", amountToSend);
+
+  //   // current gas estimate
+  //   let estimatedGas;
+  //   await web3.eth.getGasPrice().then((result: any) => {
+  //     console.log("Estimated gas is", web3.utils.fromWei(result, "ether"));
+  //     estimatedGas = result;
+  //   });
+
+  //   // the transaction
+  //   const value = await tokenContract.methods
+  //     .traverseChains(ENDPOINT_ID[fromChain], amount)
+  //     .send({
+  //       from: account,
+  //       gasPrice: estimatedGas ? estimatedGas : "0",
+  //       gas: gas ? web3.utils.fromWei(gas, "wei") : "0",
+  //       value: amountToSend ? amountToSend[0] : "0",
+  //     })
+  //     .on("transactionHash", function (hash: any) {
+  //       console.log(hash);
+  //     });
+  //   if (!value) {
+  //     console.log("traverseChains().send() from", account, "failed");
+  //   }
+  // };
+
 
   // async function TraverseButton(amount) {
-  const TraverseButton = (amount: number) => {
+  const TraverseButton = (amount: string) => {
     return (
       <div
         style={{
@@ -223,8 +166,9 @@ export const BridgeInteraction = () => {
           color: "#FFFFFF",
         }}
         // onClick={() => handleTraverse(Number(amount), toChain, fromChain)}
-        onClick={() => handleTraverseThis(Number(amount), toChain, fromChain)}
-        // className={className}
+        // onClick={async () => await handleTraverseThis(account, Number(amount), toChain, fromChain)}
+        onClick={async () => await traverseChains(amount, fromChain, ENDPOINT_ID[toChain])}
+      // className={className}
       >
         {`Bridge to ${ChainName[toChain]}`}
       </div>
@@ -297,13 +241,12 @@ export const BridgeInteraction = () => {
               }}
             >
               <div>
-                {`${
-                  !balance || Number(formattedBalance) == 0
-                    ? "0"
-                    : balance && Number(formattedBalance) > 0.01
+                {`${!balance || Number(formattedBalance) == 0
+                  ? "0"
+                  : balance && Number(formattedBalance) > 0.01
                     ? formatNumber(Number(formattedBalance), false, true)
                     : "< 0.01"
-                }`}
+                  }`}
               </div>
               <div> {`lz-fMULTI`} </div>
             </div>
@@ -311,7 +254,7 @@ export const BridgeInteraction = () => {
           {/* @ts-ignore */}
           <TraverseButton
             account={account}
-            amount={balance}
+            amount={balance.toString()}
             toChain={toChain}
             fromChain={fromChain}
           />

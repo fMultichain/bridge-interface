@@ -5,7 +5,7 @@ import { BridgeInteraction } from "components/BridgeInteraction";
 import MetaHeader from "components/MetaHeader.tsx";
 // import { WrapInteraction } from "~~/components/wrapper-ui/WrapInteraction";
 
-const WrapperUI: NextPage = () => {
+const Bridge: NextPage = () => {
   return (
     <>
       {/* @ts-ignore: TODO */}
@@ -40,4 +40,4 @@ const WrapperUI: NextPage = () => {
   );
 };
 
-export default WrapperUI;
+export default Bridge;
