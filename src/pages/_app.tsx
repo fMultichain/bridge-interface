@@ -12,7 +12,8 @@ const Web3ProviderNetwork = dynamic(
   { ssr: false }
 );
 
-function MyApp({ Component, pageProps }: AppProps) { // , 
+function MyApp({ Component, pageProps }: AppProps) {
+  // ,
   return (
     // @ts-ignore TYPE NEEDS FIXING
     <Web3ReactProvider getLibrary={getLibrary}>

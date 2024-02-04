@@ -35,9 +35,9 @@ const Bridge: NextPage = () => {
         >
           {/* @ts-ignore */}
           <BridgeInteraction />
-          </div>
+        </div>
 
-          {/* <div className={`grid grid-cols-1 flex-grow ${"sm:gap-36"}`} data-theme="exampleUi">
+        {/* <div className={`grid grid-cols-1 flex-grow ${"sm:gap-36"}`} data-theme="exampleUi">
             <div className={"grids sm:grid sm:grid-cols-2 flex-grow justfify-center w-[100%] h-[100%] p-2 m-0 gap-2"}>
               <div
                 className="grids text-center text-2xl font-bold justify-center rounded-lg border-8 sm:w-[100%] sm:h-[100%] mb-4"
@@ -62,10 +62,10 @@ const Bridge: NextPage = () => {
                 />
               </div>
             </div> */}
-          </div>
+      </div>
       {/* </div> */}
     </>
-  )
-}
+  );
+};
 
 export default Bridge;

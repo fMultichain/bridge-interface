@@ -25,8 +25,8 @@ const BridgeInteraction: NextPage = () => {
   const [toChain, setToChain] = useState(toChains[0]);
   const chains = toChains.filter((chain: ChainId) => chain !== toChain);
   // const formattedBalance = useTokenBalance(account, LZFMULTI_ADDRESS[fromChain]) ?? "0"
-  const formattedBalance = '10'
-  const balance = '10' // Number(formattedBalance) * 1e18;
+  const formattedBalance = "10";
+  const balance = "10"; // Number(formattedBalance) * 1e18;
 
   const ChainSelector = () => {
     const [showChains, setShowChains] = useState(false);
@@ -82,7 +82,7 @@ const BridgeInteraction: NextPage = () => {
 
   // async function TraverseButton(amount) {
   const TraverseButton = (account) => {
-    account // silences unused error
+    account; // silences unused error
     return (
       <div
         style={{
@@ -99,7 +99,9 @@ const BridgeInteraction: NextPage = () => {
         }}
         // onClick={() => handleTraverse(Number(amount), toChain, fromChain)}
         // onClick={async () => await handleTraverseThis(account, Number(amount), toChain, fromChain)}
-        onClick={async () => await traverseChains(fromChain, ENDPOINT_ID[toChain])}
+        onClick={async () =>
+          await traverseChains(fromChain, ENDPOINT_ID[toChain])
+        }
       >
         {`Bridge to ${ChainName[toChain]}`}
       </div>
@@ -120,26 +122,9 @@ const BridgeInteraction: NextPage = () => {
             }}
           >
             {/* Shows: Chain Selector */}
-              <div
-                className={"grid grid-cols-1 sm:text-md text-center w-full"}
-                style={{
-                  justifyContent: "center",
-                  border: "4px solid",
-                  borderRadius: "10px",
-                  borderColor: "#005AFF", // BLUE
-                  padding: "8px 4px",
-                  fontWeight: "bold",
-                }}
-              >
-                {/* @ts-ignore TODO */}
-                <ChainSelector />
-              </div>
-          </div>
-          {/* [√] CONNECTED : SHOW BALANCE */}
             <div
               className={"grid grid-cols-1 sm:text-md text-center w-full"}
               style={{
-                // display: "flex",
                 justifyContent: "center",
                 border: "4px solid",
                 borderRadius: "10px",
@@ -148,16 +133,34 @@ const BridgeInteraction: NextPage = () => {
                 fontWeight: "bold",
               }}
             >
-              <div>
-                {`${!balance || Number(formattedBalance) == 0
+              {/* @ts-ignore TODO */}
+              <ChainSelector />
+            </div>
+          </div>
+          {/* [√] CONNECTED : SHOW BALANCE */}
+          <div
+            className={"grid grid-cols-1 sm:text-md text-center w-full"}
+            style={{
+              // display: "flex",
+              justifyContent: "center",
+              border: "4px solid",
+              borderRadius: "10px",
+              borderColor: "#005AFF", // BLUE
+              padding: "8px 4px",
+              fontWeight: "bold",
+            }}
+          >
+            <div>
+              {`${
+                !balance || Number(formattedBalance) == 0
                   ? "0"
                   : balance && Number(formattedBalance) > 0.01
-                    ? formatNumber(Number(formattedBalance), false, true)
-                    : "< 0.01"
-                  }`}
-              </div>
-              <div> {`lz-fMULTI`} </div>
+                  ? formatNumber(Number(formattedBalance), false, true)
+                  : "< 0.01"
+              }`}
             </div>
+            <div> {`lz-fMULTI`} </div>
+          </div>
           {/* @ts-ignore */}
           <TraverseButton
             account={account}

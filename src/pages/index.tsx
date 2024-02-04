@@ -20,7 +20,7 @@ const Home: NextPage = () => {
     activate(injected, undefined, true).catch((error) => {
       activate(injected);
       console.log(error);
-    })
+    });
   }, []);
 
   return (
@@ -55,9 +55,9 @@ const Home: NextPage = () => {
       >
         {account
           ? `Connected to ${formatAddress(account ?? "")} on ${getChainInfo(
-            chainId,
-            "NETWORK"
-          )}`
+              chainId,
+              "NETWORK"
+            )}`
           : "Wallet Disconnected"}
       </div>
       <div
@@ -73,10 +73,7 @@ const Home: NextPage = () => {
         }}
         onClick={() => router.push("/bridge")}
       >
-        {
-          account ? `Bridge Assets`
-          : "Wallet Disconnected"
-        }
+        {account ? `Bridge Assets` : "Wallet Disconnected"}
       </div>
     </div>
   );
