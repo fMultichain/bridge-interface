@@ -119,6 +119,8 @@ const BridgeInteraction: NextPage = () => {
             className={account ? `grid grid-cols-1 gap-4` : `mb-8`}
             style={{
               justifyContent: "center",
+              marginTop: "2rem",
+              marginBottom: "4rem",
             }}
           >
             {/* Shows: Chain Selector */}
@@ -138,7 +140,7 @@ const BridgeInteraction: NextPage = () => {
             </div>
           </div>
           {/* [√] CONNECTED : SHOW BALANCE */}
-          <div
+          {/* <div
             className={"grid grid-cols-1 sm:text-md text-center w-full"}
             style={{
               // display: "flex",
@@ -160,7 +162,7 @@ const BridgeInteraction: NextPage = () => {
               }`}
             </div>
             <div> {`lz-fMULTI`} </div>
-          </div>
+          </div> */}
           {/* @ts-ignore */}
           <TraverseButton
             account={account}

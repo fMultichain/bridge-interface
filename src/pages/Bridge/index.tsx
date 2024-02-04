@@ -9,7 +9,13 @@ const Bridge: NextPage = () => {
   // const [showBridge, setShowBridge] = useState(false);
 
   return (
-    <>
+    <div
+    style={{
+      display: 'grid',
+      height: '100rem',
+      background: 'black'
+    }}
+    >
       {/* @ts-ignore: TODO */}
       <MetaHeader title="Bridge | lz-fMULTI" description="Bridge lz-fMULTI.">
         {/* We are importing the font this way to lighten the size of SE2. */}
@@ -64,7 +70,7 @@ const Bridge: NextPage = () => {
             </div> */}
       </div>
       {/* </div> */}
-    </>
+    </div>
   );
 };
 
