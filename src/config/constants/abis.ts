@@ -37,6 +37,26 @@ export const ABI_LZFMULTI = [
     stateMutability: "payable",
     type: "function",
   },
+  // balanceOf(_owner)
+  {
+    // constant: true,
+    inputs: [
+      {
+        name: "_owner",
+        type: "address"
+      }
+    ],
+    name: "balanceOf",
+    outputs: [
+      {
+        name: "balance",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
 ];
 
 export const ABI_ERC20 = [
@@ -67,7 +87,7 @@ export const ABI_ERC20 = [
     type: "function"
   },
   {
-    constant: true,
+    // constant: true,
     inputs: [
       {
         name: "_owner",

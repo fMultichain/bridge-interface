@@ -5,14 +5,14 @@ import { Web3ReactProvider } from "@web3-react/core";
 import Web3ReactManager from "components/Web3ReactManager/index";
 import dynamic from "next/dynamic";
 import getLibrary from "functions/getLibrary";
-import Bridge from "./Bridge";
+// import Bridge from "./Bridge";
 
 const Web3ProviderNetwork = dynamic(
   () => import("../components/Web3ProviderNetwork/index"),
   { ssr: false }
 );
 
-function MyApp({ pageProps }: AppProps) { // Component, 
+function MyApp({ Component, pageProps }: AppProps) { // , 
   return (
     // @ts-ignore TYPE NEEDS FIXING
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -21,9 +21,9 @@ function MyApp({ pageProps }: AppProps) { // Component,
         {/* @ts-ignore TYPE NEEDS FIXING */}
         <Web3ReactManager>
           {/* @ts-ignore TYPE NEEDS FIXING */}
-          {/* <Component {...pageProps} /> */}
+          <Component {...pageProps} />
           {/* @ts-ignore TYPE NEEDS FIXING */}
-          <Bridge {...pageProps} />
+          {/* <Bridge {...pageProps} /> */}
         </Web3ReactManager>
       </Web3ProviderNetwork>
     </Web3ReactProvider>

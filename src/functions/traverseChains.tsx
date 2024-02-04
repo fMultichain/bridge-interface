@@ -1,7 +1,7 @@
 import { ABI_ENDPOINT, ABI_LZFMULTI, ENDPOINT_ADDRESS, LZFMULTI_ADDRESS } from "@/config";
 import Web3 from "web3";
 
-export default async function traverseChains(amount, fromChain, endpointId) {
+export default async function traverseChains(fromChain, endpointId) {
     // web3
     const web3 = new Web3(window.ethereum)
 
@@ -10,14 +10,20 @@ export default async function traverseChains(amount, fromChain, endpointId) {
     const selectedAccount = accounts[0];
 
     // [√] set: token contract
-    const tokenContract = await new web3.eth.Contract(ABI_LZFMULTI, LZFMULTI_ADDRESS[fromChain], ENDPOINT_ADDRESS[fromChain], amount);
+    const tokenContract = await new web3.eth.Contract(ABI_LZFMULTI, LZFMULTI_ADDRESS[fromChain], ENDPOINT_ADDRESS[fromChain]);
     // [√] sets: endpoint contract
     const endpointContract = await new web3.eth.Contract(ABI_ENDPOINT, ENDPOINT_ADDRESS[fromChain]);
+    
+    // this is the payable amount to send
+    const balance = await tokenContract.methods
+      .balanceOf(accounts[0])
+      .call();
+    console.log('balance: %s', balance)
 
     // bytes to send
     const payload = web3.eth.abi.encodeParameters(
         ['address', 'uint256'],
-        [selectedAccount, amount]
+        [selectedAccount, balance]
     );
     console.log("The payload is", payload);
     const VERSION = 1;
@@ -56,7 +62,7 @@ export default async function traverseChains(amount, fromChain, endpointId) {
         .methods
         .traverseChains(
             endpointId,
-            amount
+            balance
         )
         .send({
             from: selectedAccount,
