@@ -14,7 +14,7 @@ import { NextPage } from "next";
 
 const BridgeInteraction: NextPage = () => {
   const { account, chainId } = useActiveWeb3React();
-  console.log(account)
+  // console.log(account)
   const fromChain: ChainId = chainId as ChainId;
   const toChains = [
     ChainId.FANTOM,
@@ -81,7 +81,8 @@ const BridgeInteraction: NextPage = () => {
   };
 
   // async function TraverseButton(amount) {
-  const TraverseButton = (amount: string) => {
+  const TraverseButton = (account) => {
+    account // silences unused error
     return (
       <div
         style={{
@@ -118,27 +119,7 @@ const BridgeInteraction: NextPage = () => {
               justifyContent: "center",
             }}
           >
-            {/* [√] DISCONNECTED : SHOW DISCONNECTED */}
-            {!account && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  border: "4px solid",
-                  borderRadius: "10px",
-                  borderColor: "#FF0000", // RED
-                  padding: "2px 16px",
-                  // marginTop: "32px",
-                  fontSize: "21px",
-                  animation: "pulse 2s infinite",
-                }}
-              >
-                {`Disconnected`}
-              </div>
-            )}
-
             {/* Shows: Chain Selector */}
-            {account && (
               <div
                 className={"grid grid-cols-1 sm:text-md text-center w-full"}
                 style={{
@@ -153,11 +134,8 @@ const BridgeInteraction: NextPage = () => {
                 {/* @ts-ignore TODO */}
                 <ChainSelector />
               </div>
-            )}
-            {/* {account && Number(balance) > 0 && <BridgeButton balance={JSBI.BigInt(Number(balance)).toString()} />} */}
           </div>
           {/* [√] CONNECTED : SHOW BALANCE */}
-          {account && (
             <div
               className={"grid grid-cols-1 sm:text-md text-center w-full"}
               style={{
@@ -180,7 +158,6 @@ const BridgeInteraction: NextPage = () => {
               </div>
               <div> {`lz-fMULTI`} </div>
             </div>
-          )}
           {/* @ts-ignore */}
           <TraverseButton
             account={account}

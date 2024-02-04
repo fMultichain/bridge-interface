@@ -19,6 +19,7 @@ const Home: NextPage = () => {
 
     activate(injected, undefined, true).catch((error) => {
       activate(injected);
+      console.log(error);
     })
   }, []);
 
