@@ -3,9 +3,11 @@ import React from "react";
 // import type { NextPage } from "next";
 import BridgeInteraction from "components/BridgeInteraction";
 import MetaHeader from "components/MetaHeader.tsx";
+// import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 // import { WrapInteraction } from "~~/components/wrapper-ui/WrapInteraction";
 
-export default function Bridges() {
+export default function Bridge() {
+  // const { account } = useActiveWeb3React()
     // const [showBridge, setShowBridge] = useState(false);
 
   return (
@@ -72,4 +74,4 @@ export default function Bridges() {
       {/* </div> */}
     </div>
   );
-};
+}

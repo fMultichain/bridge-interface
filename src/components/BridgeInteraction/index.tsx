@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   ChainId,
@@ -13,13 +13,14 @@ import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import traverseChains from "@/functions/traverseChains";
 import { NextPage } from "next";
 import { useTokenBalance } from "@/hooks/useTokenBalance";
+import { formatNumber } from "@/functions/formatNumber";
 
-const getBalance = async (account, chainId,) => {
+async function useGetBalance(account, chainId) {
   const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
   console.log('balance = ' + balance)
   return balance
     // setAmount(_balance);
-};
+}
 
   // after eagerly trying injected, if the network connect ever isn't active or in an error state, activate it
   // useEffect(() => {
@@ -44,8 +45,15 @@ const BridgeInteraction: NextPage = () => {
   const [toChain, setToChain] = useState(toChains[0]);
   const [triedBalance, setTriedBalance] = useState(false)
   const [balance, setBalance] = useState('0');
-  const [amount, setAmount] = useState('0');
+  // const [amount, setAmount] = useState('0');
   const chains = toChains.filter((chain: ChainId) => chain !== toChain);
+
+  useGetBalance(account, chainId).then((balance) => {
+    if (account && !triedBalance) {
+      setTriedBalance(true)
+    setBalance(balance);
+    } else return
+  })
 
   const ChainSelector = () => {
     const [showChains, setShowChains] = useState(false);
@@ -111,7 +119,7 @@ const BridgeInteraction: NextPage = () => {
           border: "4px solid",
           borderRadius: "10px",
           padding: "8px 6px",
-          paddingTop: "16px",
+          // paddingTop: "16px",
           fontSize: "21px",
           fontWeight: "bold",
           backgroundColor: "#005AFF", // BLUE
@@ -160,7 +168,7 @@ const BridgeInteraction: NextPage = () => {
             </div>
           </div>
           {/* [√] CONNECTED : SHOW BALANCE */}
-          {/* <div
+          <div
             className={"grid grid-cols-1 sm:text-md text-center w-full"}
             style={{
               // display: "flex",
@@ -172,17 +180,27 @@ const BridgeInteraction: NextPage = () => {
               fontWeight: "bold",
             }}
           >
-            <div>
-              {`${
-                !balance || Number(formattedBalance) == 0
+            <div
+              style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  border: "4px solid",
+                  borderRadius: "10px",
+                  padding: "8px 4px",
+                  fontWeight: "bold",
+                  backgroundColor: "#005AFF", // BLUE
+                  color: "#FFFFFF",
+              }}
+            >
+              {`Balance: ${
+                !balance || Number(balance) == 0
                   ? "0"
-                  : balance && Number(formattedBalance) > 0.01
-                  ? formatNumber(Number(formattedBalance), false, true)
+                  : balance && Number(balance) > 0.01
+                  ? formatNumber(Number(balance), false, true)
                   : "< 0.01"
-              }`}
+              } lz-fMULTI`}
             </div>
-            <div> {`lz-fMULTI`} </div>
-          </div> */}
+          </div>
           {/* @ts-ignore */}
           <TraverseButton
             account={account}
