@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import {
+  ABI_ERC20,
   BLUE,
   ChainId,
   ChainName,
@@ -11,18 +12,22 @@ import {
 import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import traverseChains from "@/functions/traverseChains";
 import { NextPage } from "next";
-import { useTokenBalance } from "@/hooks/useTokenBalance";
+// import { useTokenBalance } from "@/hooks/useTokenBalance";
 import { formatNumber } from "@/functions/formatNumber";
 import { useWeb3Modal } from '@web3modal/ethers/react'
+import { useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers/react'
+import { BrowserProvider, Contract, formatUnits } from "ethers";
 
-async function useGetBalance(account: any, chainId: ChainId) {
-  const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
-  console.log('balance = ' + balance)
-  return balance
-}
+// async function useGetBalance(account: any, chainId: ChainId) {
+//   const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
+//   console.log('balance = ' + balance)
+//   return balance
+// }
 
 const BridgeInteraction: NextPage = () => {
   const { account, chainId } = useActiveWeb3React();
+  const { address, isConnected } = useWeb3ModalAccount()
+
   const { open } = useWeb3Modal()
 
   // console.log('account: %s', account)
@@ -34,17 +39,34 @@ const BridgeInteraction: NextPage = () => {
     ChainId.AVALANCHE,
   ].filter((chain: ChainId) => chain !== fromChain);
   const [toChain, setToChain] = useState(toChains[0]);
-  const [triedBalance, setTriedBalance] = useState(false)
+  // const [triedBalance, setTriedBalance] = useState(false)
   const [balance, setBalance] = useState('0');
   const [inputAmount, setAmount] = useState(0);
   const chains = toChains.filter((chain: ChainId) => chain !== toChain);
 
-  useGetBalance(account, fromChain).then((balance) => {
-    if (account && !triedBalance) {
-      setTriedBalance(true)
-      setBalance(balance);
-    } else return
-  })
+  const { walletProvider } = useWeb3ModalProvider()
+
+  async function getBalance(address) {
+    if (!isConnected) throw Error('User disconnected')
+
+    const ethersProvider = new BrowserProvider(walletProvider)
+    const signer = await ethersProvider.getSigner()
+    const TokenContract = new Contract(LZFMULTI_ADDRESS[chainId], ABI_ERC20, signer)
+    const TokenBalance = await TokenContract.balanceOf(address)
+    setBalance(TokenBalance)
+    console.log('tokenBalance: %s', formatUnits(TokenBalance, 18))
+  }
+
+  // useCallback(async () => {
+    getBalance(address)
+  // }, [])
+
+  // useGetBalance(account, fromChain).then((balance) => {
+  //   if (account && !triedBalance) {
+  //     setTriedBalance(true)
+  //     setBalance(balance);
+  //   } else return
+  // })
 
   {/* [√] SHOW BALANCE */ }
   const NumericInput = () => {
@@ -143,17 +165,21 @@ const BridgeInteraction: NextPage = () => {
           <div
             onClick={() => toggleShow()}
             style={{
-              display: "flex",
+              display: 'flex',
               justifyContent: "center",
               border: "4px solid",
               borderRadius: "10px",
+              borderColor: "#FFFFFF",
               padding: "8px 4px",
               fontWeight: "bold",
               backgroundColor: BLUE, // BLUE
-              color: "#FFFFFF",
+              color: "white",
+              fontSize: "18px",
+              gap: "1rem",
+              marginBottom: "1rem",
             }}
           >
-            {`${NetworkName[toChain]}`}
+            { `To: ${NetworkName[toChain]}` }
           </div>
         </div>
         {showChains && (
@@ -234,33 +260,44 @@ const BridgeInteraction: NextPage = () => {
                 gap: "1rem",
                 marginBottom: "1rem",
               }}
-              onClick={() => open({ view: 'Networks' })}
+              onClick={
+                () => open({ view: 'Networks' })
+              }
 
             >
-              {`Source Chain: ${NetworkName[fromChain]}`}
+              {`From: ${NetworkName[fromChain]}`}
             </div>
             {/* Shows: Chain Selector */}
-            <div
+            {/* <div
               className={"grid grid-cols-1 text-center w-full"}
               style={{
-                display: 'grid',
+                display: 'flex',
                 justifyContent: "center",
+                justifyItems: "center",
                 border: "4px solid",
                 borderRadius: "10px",
                 borderColor: "#FFFFFF", // BLUE
-                padding: "8px 4px",
+                padding: "8px 8px",
                 fontWeight: "bold",
                 backgroundColor: BLUE, // BLUE
                 color: "white",
                 fontSize: "18px",
                 gap: "1rem",
+                paddingTop: "1rem",
                 marginBottom: "1rem",
+                marginTop: "1rem",
               }}
             >
               {`Destination Chain`}
-              {/* @ts-ignore TODO */}
-              <ChainSelector />
-            </div>
+            </div> */}
+              <div
+                style={{
+                  marginBottom: "1rem",
+                }}
+                >
+                {/* @ts-ignore TODO */}
+                <ChainSelector />
+              </div>
             {/* @ts-ignore TODO */}
             <NumericInput />
             <br />

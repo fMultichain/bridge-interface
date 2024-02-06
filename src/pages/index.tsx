@@ -6,10 +6,11 @@ import { injected } from "config/constants/wallets";
 import { connectorLocalStorageKey } from "config/connectors/index";
 import { BLUE, ChainColor, ChainId } from "config";
 import formatAddress from "functions/formatAddress";
-// import { getChainInfo } from "functions/getChainInfo";
 import { useWeb3Modal } from '@web3modal/ethers/react'
-// import {  useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 import BridgeInteraction from "@/components/BridgeInteraction";
+
+// import { getChainInfo } from "functions/getChainInfo";
+// import {  useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 const Home: NextPage = () => {
   const { account, activate, chainId } = useActiveWeb3React();
