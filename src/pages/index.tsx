@@ -71,7 +71,7 @@ const Home: NextPage = () => {
           padding: "20px",
           marginTop: "20px",
         }}
-        onClick={() => router.push("/Bridge")}
+        onClick={() => router.push("/bridge")}
       >
         {account ? `Bridge Assets` : "Wallet Disconnected"}
       </div>
