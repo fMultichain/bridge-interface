@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import {
   ChainId,
   ChainName,
   ENDPOINT_ID,
+  LZFMULTI_ADDRESS,
   // LZFMULTI_ADDRESS,
 } from "config/constants";
 // import { formatNumber } from "functions/formatNumber";
@@ -11,6 +12,24 @@ import {
 import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import traverseChains from "@/functions/traverseChains";
 import { NextPage } from "next";
+import { useTokenBalance } from "@/hooks/useTokenBalance";
+
+const getBalance = async (account, chainId,) => {
+  const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
+  console.log('balance = ' + balance)
+  return balance
+    // setAmount(_balance);
+};
+
+  // after eagerly trying injected, if the network connect ever isn't active or in an error state, activate it
+  // useEffect(() => {
+  //   if (!triedBalance) {
+  //     setTriedBalance(true)
+  //     // setBalance(_balance)
+  //     getBalance(account, chainId);
+  //   }
+  // }, [triedBalance, balance]);
+
 
 const BridgeInteraction: NextPage = () => {
   const { account, chainId } = useActiveWeb3React();
@@ -23,16 +42,17 @@ const BridgeInteraction: NextPage = () => {
     ChainId.AVALANCHE,
   ].filter((chain: ChainId) => chain !== fromChain);
   const [toChain, setToChain] = useState(toChains[0]);
+  const [triedBalance, setTriedBalance] = useState(false)
+  const [balance, setBalance] = useState('0');
+  const [amount, setAmount] = useState('0');
   const chains = toChains.filter((chain: ChainId) => chain !== toChain);
-  // const formattedBalance = useTokenBalance(account, LZFMULTI_ADDRESS[fromChain]) ?? "0"
-  // const formattedBalance = "10";
-  const balance = "10"; // Number(formattedBalance) * 1e18;
 
   const ChainSelector = () => {
     const [showChains, setShowChains] = useState(false);
     const toggleShow = () => {
       setShowChains(!showChains);
-    };
+  };
+
     return (
       <div>
         <div className={"grid grid-cols-1"}>

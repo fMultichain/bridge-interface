@@ -1,12 +1,12 @@
 import React from "react";
 // import Image from "next/image";
-import type { NextPage } from "next";
+// import type { NextPage } from "next";
 import BridgeInteraction from "components/BridgeInteraction";
 import MetaHeader from "components/MetaHeader.tsx";
 // import { WrapInteraction } from "~~/components/wrapper-ui/WrapInteraction";
 
-const Bridge: NextPage = () => {
-  // const [showBridge, setShowBridge] = useState(false);
+export default function Bridges() {
+    // const [showBridge, setShowBridge] = useState(false);
 
   return (
     <div
@@ -73,5 +73,3 @@ const Bridge: NextPage = () => {
     </div>
   );
 };
-
-export default Bridge;
