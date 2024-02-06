@@ -6,24 +6,25 @@ import {
   ChainName,
   ENDPOINT_ID,
   LZFMULTI_ADDRESS,
+  NetworkName,
 } from "config/constants";
 import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import traverseChains from "@/functions/traverseChains";
 import { NextPage } from "next";
 import { useTokenBalance } from "@/hooks/useTokenBalance";
 import { formatNumber } from "@/functions/formatNumber";
+import { useWeb3Modal } from '@web3modal/ethers/react'
 
 async function useGetBalance(account: any, chainId: ChainId) {
   const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
   console.log('balance = ' + balance)
-  // setBalance(balance)
-  // setTriedBalance(true)
   return balance
 }
 
 const BridgeInteraction: NextPage = () => {
   const { account, chainId } = useActiveWeb3React();
-  
+  const { open } = useWeb3Modal()
+
   // console.log('account: %s', account)
   const fromChain: ChainId = chainId as ChainId;
   const toChains = [
@@ -152,11 +153,11 @@ const BridgeInteraction: NextPage = () => {
               color: "#FFFFFF",
             }}
           >
-            {`${ChainName[toChain]}`}
+            {`${NetworkName[toChain]}`}
           </div>
         </div>
         {showChains && (
-          <div onClick={() => toggleShow()} className="grid grid-cols-2 gap-2">
+          <div onClick={() => toggleShow()} className={`grid grid-cols-2 gap-2`}>
             {chains.map((chain: ChainId) => (
               <div
                 key={chain}
@@ -168,13 +169,14 @@ const BridgeInteraction: NextPage = () => {
                   justifyContent: "center",
                   border: "4px solid",
                   borderRadius: "10px",
-                  // padding: "8px 4px",
+                  padding: "8px 4px",
                   fontWeight: "bold",
-                  backgroundColor: BLUE, // BLUE
-                  color: "#FFFFFF",
+                  backgroundColor: '#FFFFFF', // BLUE
+                  color: BLUE,
+                  margin: "4px",
                 }}
               >
-                {ChainName[chain]}
+                {NetworkName[chain]}
               </div>
             ))}
           </div>
@@ -215,6 +217,28 @@ const BridgeInteraction: NextPage = () => {
               marginBottom: "4rem",
             }}
           >
+            {/* Shows: Chain Selector */}
+            <div
+              // className={"grid grid-cols-1 text-center w-full"}
+              style={{
+                display: 'flex',
+                justifyContent: "center",
+                border: "4px solid",
+                borderRadius: "10px",
+                borderColor: "#FFFFFF", // BLUE
+                padding: "8px 4px",
+                fontWeight: "bold",
+                backgroundColor: BLUE, // BLUE
+                color: "white",
+                fontSize: "18px",
+                gap: "1rem",
+                marginBottom: "1rem",
+              }}
+              onClick={() => open({ view: 'Networks' })}
+
+            >
+              {`Source Chain: ${NetworkName[fromChain]}`}
+            </div>
             {/* Shows: Chain Selector */}
             <div
               className={"grid grid-cols-1 text-center w-full"}

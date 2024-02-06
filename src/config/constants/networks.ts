@@ -22,6 +22,13 @@ export const ChainName: any = {
   [ChainId.BASE]: "BASE",
 };
 
+export const NetworkName: any = {
+  [ChainId.FANTOM]: "Fantom Opera",
+  [ChainId.ARBITRUM]: "Arbitrum One",
+  [ChainId.AVALANCHE]: "Avalanche",
+  [ChainId.BASE]: "Coinbase",
+};
+
 export const ChainLogo = {
   [ChainId.FANTOM]: "/images/networks/fantom-white.svg",
   [ChainId.ARBITRUM]: "/images/networks/arbitrum.svg",

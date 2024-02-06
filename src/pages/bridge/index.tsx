@@ -6,10 +6,13 @@ import { connectorLocalStorageKey } from "config/connectors/index";
 import { injected } from "config/constants/wallets";
 import { BLUE } from "@/config";
 import { Header } from "@/components/Header";
+// import { useWeb3Modal } from '@web3modal/ethers/react'
+// import {  useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 export default function Bridge() {
   const { account, activate } = useActiveWeb3React();
-  
+  // const { open } = useWeb3Modal()
+
   useEffect(() => {
     console.log(window.localStorage?.getItem(connectorLocalStorageKey));
   
@@ -58,34 +61,7 @@ export default function Bridge() {
           {/* @ts-ignore */}
           <BridgeInteraction account={account} />
         </div>
-
-        {/* <div className={`grid grid-cols-1 flex-grow ${"sm:gap-36"}`} data-theme="exampleUi">
-            <div className={"grids sm:grid sm:grid-cols-2 flex-grow justfify-center w-[100%] h-[100%] p-2 m-0 gap-2"}>
-              <div
-                className="grids text-center text-2xl font-bold justify-center rounded-lg border-8 sm:w-[100%] sm:h-[100%] mb-4"
-                style={{
-                  display: "grid",
-                  justifyContent: "center",
-                  // alignItems: "center",
-                  borderTopColor: "#005AFF", // BLUE
-                  borderLeftColor: "#005AFF", // BLUE
-                  borderRightColor: "#005AFF", // BLUE
-                  borderBottomColor: "#005AFF", // BLUE
-                  fontWeight: "bold",
-                  padding: "0.5rem",
-                }}
-              >
-                <Image
-                  className="grids text-center font-bold justify-center rounded-lg sm:w-[100%] sm:h-[100%] sm:mb-64 md:mb-32 lg:mb-24"
-                  src="/assets/bridge.gif"
-                  alt="Bridge"
-                  width={2400}
-                  height={1800}
-                />
-              </div>
-            </div> */}
       </div>
-      {/* </div> */}
     </div>
   );
 }
