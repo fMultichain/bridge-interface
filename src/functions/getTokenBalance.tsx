@@ -16,6 +16,6 @@ export async function getTokenBalance (ABI, tokenAddress) {
   console.log("balance: %s", balance);
 
   return balance;
-};
+}
 
 export default getTokenBalance;

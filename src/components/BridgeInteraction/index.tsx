@@ -6,7 +6,7 @@ import {
   ENDPOINT_ID,
   // LZFMULTI_ADDRESS,
 } from "config/constants";
-import { formatNumber } from "functions/formatNumber";
+// import { formatNumber } from "functions/formatNumber";
 // import { useTokenBalance } from "hooks/useTokenBalance";
 import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import traverseChains from "@/functions/traverseChains";
@@ -25,7 +25,7 @@ const BridgeInteraction: NextPage = () => {
   const [toChain, setToChain] = useState(toChains[0]);
   const chains = toChains.filter((chain: ChainId) => chain !== toChain);
   // const formattedBalance = useTokenBalance(account, LZFMULTI_ADDRESS[fromChain]) ?? "0"
-  const formattedBalance = "10";
+  // const formattedBalance = "10";
   const balance = "10"; // Number(formattedBalance) * 1e18;
 
   const ChainSelector = () => {
