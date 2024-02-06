@@ -6,7 +6,7 @@ import {
 } from "@/config";
 import Web3 from "web3";
 
-export default async function traverseChains(fromChain, endpointId) {
+export default async function traverseChains(amount, fromChain, endpointId) {
   // web3
   const web3 = new Web3(window.ethereum);
 
@@ -26,14 +26,14 @@ export default async function traverseChains(fromChain, endpointId) {
     ENDPOINT_ADDRESS[fromChain]
   );
 
-  // this is the payable amount to send
-  const balance = await tokenContract.methods.balanceOf(accounts[0]).call();
-  console.log("balance: %s", balance);
+  // const balance = await tokenContract.methods.balanceOf(accounts[0]).call();
+  // console.log("balance: %s", balance);
+  console.log("amount: %s", amount);
 
   // bytes to send
   const payload = web3.eth.abi.encodeParameters(
     ["address", "uint256"],
-    [selectedAccount, balance]
+    [selectedAccount, amount]
   );
   console.log("The payload is", payload);
   const VERSION = 1;
@@ -54,8 +54,8 @@ export default async function traverseChains(fromChain, endpointId) {
     { value: number, type: "uint256" }
   );
   console.log("Parameters: %s", parameters);
-
-  // gets: gas estimate
+  
+  // [√] gets: payable amount to send
   const payableAmount = await endpointContract.methods
     .estimateFees(
       endpointId,
@@ -75,7 +75,7 @@ export default async function traverseChains(fromChain, endpointId) {
     console.log("Estimated fees are", payableAmount);
   }
 
-  // gas estimate
+  // [√] gets: gas estimate
   let estimatedGas;
   await web3.eth.getGasPrice().then((result) => {
     console.log("Estimated gas is", web3.utils.fromWei(result, "ether"));
@@ -85,7 +85,7 @@ export default async function traverseChains(fromChain, endpointId) {
   // the transaction
   // tokenContract = await new web3.eth.Contract(ABI_ERC20, tokenAddress);
   const value = await tokenContract.methods
-    .traverseChains(endpointId, balance)
+    .traverseChains(endpointId, amount)
     .send({
       from: selectedAccount,
       gasPrice: estimatedGas,

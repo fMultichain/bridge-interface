@@ -17,22 +17,22 @@ import { formatNumber } from "@/functions/formatNumber";
 
 
 
-  // after eagerly trying injected, if the network connect ever isn't active or in an error state, activate it
-  // useEffect(() => {
-  //   if (!triedBalance) {
-  //     setTriedBalance(true)
-  //     // setBalance(_balance)
-  //     getBalance(account, chainId);
-  //   }
-  // }, [triedBalance, balance]);
+// after eagerly trying injected, if the network connect ever isn't active or in an error state, activate it
+// useEffect(() => {
+//   if (!triedBalance) {
+//     setTriedBalance(true)
+//     // setBalance(_balance)
+//     getBalance(account, chainId);
+//   }
+// }, [triedBalance, balance]);
 
-  async function useGetBalance(account, chainId) {
-    const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
-    console.log('balance = ' + balance)
-    // setBalance(balance)
-    // setTriedBalance(true)
-    return balance
-  }
+async function useGetBalance(account, chainId) {
+  const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
+  console.log('balance = ' + balance)
+  // setBalance(balance)
+  // setTriedBalance(true)
+  return balance
+}
 
 const BridgeInteraction: NextPage = () => {
   const { account, chainId } = useActiveWeb3React();
@@ -47,21 +47,103 @@ const BridgeInteraction: NextPage = () => {
   const [toChain, setToChain] = useState(toChains[0]);
   const [triedBalance, setTriedBalance] = useState(false)
   const [balance, setBalance] = useState('0');
-  // const [amount, setAmount] = useState('0');
+  const [amount, setAmount] = useState('0');
   const chains = toChains.filter((chain: ChainId) => chain !== toChain);
 
   useGetBalance(account, chainId).then((balance) => {
     if (account && !triedBalance) {
       setTriedBalance(true)
-    setBalance(balance);
+      setBalance(balance);
     } else return
   })
+
+  {/* [√] SHOW BALANCE */ }
+  const NumericInput = () => {
+    const handleInput = (inputAmount) => {
+      setAmount(inputAmount)
+      console.log('inputAmount: %s', inputAmount.toString())
+    }
+    
+    const handleMax = () => {
+      setAmount(balance)
+      console.log('max: %s', balance.toString())
+    }
+
+    return (
+      <div
+        className={"grid grid-cols-1 sm:text-md text-center w-full"}
+        style={{
+          // display: "flex",
+          justifyContent: "center",
+          fontWeight: "bold",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            border: "4px solid",
+            borderRadius: "10px",
+            padding: "8px 4px",
+            fontWeight: "bold",
+            backgroundColor: "#005AFF", // BLUE
+            color: "#FFFFFF",
+          }}
+        >
+      <input
+          value={amount}
+          type="number"
+          placeholder="Enter amount"
+          onChange={(e) => handleInput(e.target.value)}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            border: "4px solid",
+            borderRadius: "10px",
+            padding: "8px 4px",
+            fontWeight: "bold",
+            backgroundColor: "#005AFF", // BLUE
+            color: "#FFFFFF",
+            }}
+      />
+        <div
+          style={{
+            backgroundColor: "#005AFF", // BLUE
+            border: '2px solid',
+            borderRadius: "24px",
+            color: "#FFFFFF",
+            margin: "4px",
+            paddingTop: '0.25rem',
+            paddingLeft: '1.5rem',
+            paddingRight: '1.5rem',
+          }}
+          onClick={() => handleMax()}
+        >
+          {'MAX'}
+        </div>
+        </div>
+        <div
+          style={{
+            color: '#FFFFFF',
+            marginTop: '12px'
+          }}
+        >
+          {`Balance: ${!balance || Number(balance) == 0
+            ? "0"
+            : balance && Number(balance) > 0.01
+              ? formatNumber(Number(balance) / 1E18, false, true)
+              : "< 0.01"
+            } lz-fMULTI`}
+        </div>
+      </div>
+    )
+  }
 
   const ChainSelector = () => {
     const [showChains, setShowChains] = useState(false);
     const toggleShow = () => {
       setShowChains(!showChains);
-  };
+    };
 
     return (
       <div>
@@ -110,36 +192,25 @@ const BridgeInteraction: NextPage = () => {
     );
   };
 
-  // async function TraverseButton(amount) {
-  const TraverseButton = (account) => {
-    account; // silences unused error
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          border: "4px solid",
-          borderRadius: "10px",
-          padding: "8px 6px",
-          // paddingTop: "16px",
-          fontSize: "21px",
-          fontWeight: "bold",
-          backgroundColor: "#005AFF", // BLUE
-          color: "#FFFFFF",
-        }}
-        // onClick={() => handleTraverse(Number(amount), toChain, fromChain)}
-        // onClick={async () => await handleTraverseThis(account, Number(amount), toChain, fromChain)}
-        onClick={async () =>
-          await traverseChains(fromChain, ENDPOINT_ID[toChain])
-        }
-      >
-        {`Bridge to ${ChainName[toChain]}`}
-      </div>
-    );
-  };
+  // // async function TraverseButton(amount) {
+  // const TraverseButton = (amount) => {
+  //   return (
+
+  //   );
+  // };
 
   return (
-    <div className="flex bg-base-300 relative pb-10">
+    <div className=""
+      style={{
+        display: "grid",
+        width: "100%",
+        justifyContent: "center",
+        backgroundColor: "#005AFF", // BLUE
+        borderColor: "#FFFFFF",
+        borderWidth: "4px",
+        margin: "2rem 0",
+      }}
+    >
       {/* <DiamondIcon className="absolute top-24" />
         <CopyIcon className="absolute bottom-0 left-36" />
         <HareIcon className="absolute right-0 bottom-24" /> */}
@@ -155,61 +226,52 @@ const BridgeInteraction: NextPage = () => {
           >
             {/* Shows: Chain Selector */}
             <div
-              className={"grid grid-cols-1 sm:text-md text-center w-full"}
+              className={"grid grid-cols-1 text-center w-full"}
               style={{
+                display: 'grid',
                 justifyContent: "center",
                 border: "4px solid",
                 borderRadius: "10px",
-                borderColor: "#005AFF", // BLUE
+                borderColor: "#FFFFFF", // BLUE
                 padding: "8px 4px",
                 fontWeight: "bold",
+                backgroundColor: "#005AFF", // BLUE
+                color: "white",
+                fontSize: "18px",
+                gap: "1rem",
+                marginBottom: "1rem",
               }}
             >
+              {`Destination Chain`}
               {/* @ts-ignore TODO */}
               <ChainSelector />
             </div>
-          </div>
-          {/* [√] CONNECTED : SHOW BALANCE */}
-          <div
-            className={"grid grid-cols-1 sm:text-md text-center w-full"}
-            style={{
-              // display: "flex",
-              justifyContent: "center",
-              border: "4px solid",
-              borderRadius: "10px",
-              borderColor: "#005AFF", // BLUE
-              padding: "8px 4px",
-              fontWeight: "bold",
-            }}
-          >
+            {/* @ts-ignore TODO */}
+            <NumericInput />
+            <br />
+            {/* @ts-ignore */}
             <div
               style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  border: "4px solid",
-                  borderRadius: "10px",
-                  padding: "8px 4px",
-                  fontWeight: "bold",
-                  backgroundColor: "#005AFF", // BLUE
-                  color: "#FFFFFF",
+                display: "flex",
+                justifyContent: "center",
+                border: "4px solid",
+                borderRadius: "10px",
+                padding: "8px 6px",
+                // paddingTop: "16px",
+                fontSize: "21px",
+                fontWeight: "bold",
+                backgroundColor: "#005AFF", // BLUE
+                color: "#FFFFFF",
               }}
+              // onClick={() => handleTraverse(Number(amount), toChain, fromChain)}
+              // onClick={async () => await handleTraverseThis(account, Number(amount), toChain, fromChain)}
+              onClick={async () =>
+                await traverseChains(Number(amount), fromChain, ENDPOINT_ID[toChain])
+              }
             >
-              {`Balance: ${
-                !balance || Number(balance) == 0
-                  ? "0"
-                  : balance && Number(balance) > 0.01
-                  ? formatNumber(Number(balance) / 1E18, false, true)
-                  : "< 0.01"
-              } lz-fMULTI`}
+              {`Bridge to ${ChainName[toChain]}`}
             </div>
           </div>
-          {/* @ts-ignore */}
-          <TraverseButton
-            account={account}
-            amount={balance}
-            toChain={toChain}
-            fromChain={fromChain}
-          />
         </div>
       </div>
     </div>
