@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const { account, activate, chainId } = useActiveWeb3React();
-  const fontColor = ChainColor[chainId ?? ChainId.ETHEREUM];
+  const fontColor = ChainColor[chainId ?? ChainId.FANTOM];
   const router = useRouter();
 
   useEffect(() => {

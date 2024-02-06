@@ -1,7 +1,7 @@
 import { ChainId } from "./chainId";
 
 export const RPC = {
-  [ChainId.ETHEREUM]: "https://api.sushirelay.com/v1",
+  // [ChainId.ETHEREUM]: "https://api.sushirelay.com/v1",
   // [ChainId.ETHEREUM]: 'https://eth-mainnet.alchemyapi.io/v2/HNQXSfiUcPjfpDBQaWYXjqlhTr1cEY9c',
   // [ChainId.MAINNET]: 'https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC',
   //   [ChainId.ROPSTEN]: "https://eth-ropsten.alchemyapi.io/v2/cidKix2Xr-snU3f6f6Zjq_rYdalKKHmW",
@@ -37,11 +37,11 @@ export const RPC = {
 };
 
 export const RPCS = {
-  [ChainId.ETHEREUM]: [
-    "https://api.sushirelay.com/v1",
-    "https://eth-mainnet.alchemyapi.io/v2/HNQXSfiUcPjfpDBQaWYXjqlhTr1cEY9c",
-    "https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC",
-  ],
+  // [ChainId.ETHEREUM]: [
+  //   "https://api.sushirelay.com/v1",
+  //   "https://eth-mainnet.alchemyapi.io/v2/HNQXSfiUcPjfpDBQaWYXjqlhTr1cEY9c",
+  //   "https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC",
+  // ],
   [ChainId.BASE]: "https://rpc.ankr.com/base",
   [ChainId.FANTOM]: [
     "https://rpc.ankr.com/fantom",

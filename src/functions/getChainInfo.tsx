@@ -18,14 +18,6 @@ export function getChainInfo(chainId: number, option: string) {
       : option == "SYMBOL"
       ? (output = "AVAX")
       : (output = "");
-  } else if (chainId == ChainId.ETHEREUM) {
-    option == "NETWORK"
-      ? (output = "Ethereum Mainnet")
-      : option == "NAME"
-      ? (output = "Ethereum")
-      : option == "SYMBOL"
-      ? (output = "ETH")
-      : (output = "");
   } else if (chainId == ChainId.BSC) {
     option == "NETWORK"
       ? (output = "Binance Smart Chain")
