@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import {
+  BLUE,
   ChainId,
   ChainName,
   ENDPOINT_ID,
@@ -74,7 +75,7 @@ const BridgeInteraction: NextPage = () => {
             borderRadius: "10px",
             padding: "8px 4px",
             fontWeight: "bold",
-            backgroundColor: "#005AFF", // BLUE
+            backgroundColor: BLUE, // BLUE
             color: "#FFFFFF",
           }}
         >
@@ -91,13 +92,13 @@ const BridgeInteraction: NextPage = () => {
               borderRadius: "10px",
               padding: "8px 4px",
               fontWeight: "bold",
-              backgroundColor: "#005AFF", // BLUE
+              backgroundColor: BLUE, // BLUE
               color: "#FFFFFF",
             }}
           />
           <div
             style={{
-              backgroundColor: "#005AFF", // BLUE
+              backgroundColor: BLUE, // BLUE
               border: '2px solid',
               borderRadius: "24px",
               color: "#FFFFFF",
@@ -148,7 +149,7 @@ const BridgeInteraction: NextPage = () => {
               borderRadius: "10px",
               padding: "8px 4px",
               fontWeight: "bold",
-              backgroundColor: "#005AFF", // BLUE
+              backgroundColor: BLUE, // BLUE
               color: "#FFFFFF",
             }}
           >
@@ -170,7 +171,7 @@ const BridgeInteraction: NextPage = () => {
                   borderRadius: "10px",
                   // padding: "8px 4px",
                   fontWeight: "bold",
-                  backgroundColor: "#005AFF", // BLUE
+                  backgroundColor: BLUE, // BLUE
                   color: "#FFFFFF",
                 }}
               >
@@ -196,7 +197,7 @@ const BridgeInteraction: NextPage = () => {
         display: "grid",
         width: "100%",
         justifyContent: "center",
-        backgroundColor: "#005AFF", // BLUE
+        backgroundColor: BLUE, // BLUE
         borderColor: "#FFFFFF",
         borderWidth: "4px",
         margin: "2rem 0",
@@ -226,7 +227,7 @@ const BridgeInteraction: NextPage = () => {
                 borderColor: "#FFFFFF", // BLUE
                 padding: "8px 4px",
                 fontWeight: "bold",
-                backgroundColor: "#005AFF", // BLUE
+                backgroundColor: BLUE, // BLUE
                 color: "white",
                 fontSize: "18px",
                 gap: "1rem",
@@ -251,7 +252,7 @@ const BridgeInteraction: NextPage = () => {
                 // paddingTop: "16px",
                 fontSize: "21px",
                 fontWeight: "bold",
-                backgroundColor: "#005AFF", // BLUE
+                backgroundColor: BLUE, // BLUE
                 color: "#FFFFFF",
               }}
               // onClick={() => handleTraverse(Number(inputAmount), toChain, fromChain)}

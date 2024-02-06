@@ -5,6 +5,7 @@ import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import { connectorLocalStorageKey } from "config/connectors/index";
 import { injected } from "config/constants/wallets";
 import { BLUE } from "@/config";
+import { Header } from "@/components/Header";
 
 export default function Bridge() {
   const { account, activate } = useActiveWeb3React();
@@ -22,8 +23,11 @@ export default function Bridge() {
     <div
     style={{
       display: 'grid',
+      backgroundColor: BLUE,
+      // height: '100%',
+      // width: '100%',
       // height: '100rem',
-      backgroundColor: "-moz-initial"
+      // backgroundColor: "-moz-initial"
     }}
     >
       {/* @ts-ignore: TODO */}
@@ -35,8 +39,10 @@ export default function Bridge() {
           rel="stylesheet"
         />
       </MetaHeader>
+      {/* @ts-ignore */}
+      <Header />
       <div
-        className={`grid grid-cols-1 flex-grow ${"sm:gap-36"}`}
+        className={`grid grid-cols-1 flex-grow`}
         data-theme="defaultPageStyle"
       >
         <div

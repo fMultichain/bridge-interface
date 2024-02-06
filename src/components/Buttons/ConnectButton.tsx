@@ -6,16 +6,12 @@ export default function ConnectButton() {
 
   return (
     <div
-      className='flex flex-cols-1 justify-space-between text-center w-full'
+      // className='flex flex-cols-1 text-center w-full'
       style={{
         display: 'flex',
-        justifyItems: 'space-between',
-        gap: '50%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: '4px solid',
-        borderRadius: '5px',
+        justifyContent: 'space-between',
         padding: '20px',
+        margin: '0 0 0 0',
         backgroundColor: BLUE,
       }}
     >

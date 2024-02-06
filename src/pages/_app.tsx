@@ -13,8 +13,8 @@ const Web3ProviderNetwork = dynamic(
 );
 
 export const metadata = {
-  title: 'Web3Modal',
-  description: 'Web3Modal Example'
+  title: 'lz-fMULTI Bridge',
+  description: 'fMULTI Bridge Services'
 }
 
 
