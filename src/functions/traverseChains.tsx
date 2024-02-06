@@ -36,7 +36,7 @@ export default async function traverseChains(inputAmount, fromChain, endpointId)
     ["address", "uint256"],
     [selectedAccount, amount]
   );
-  console.log("The payload is", payload);
+  console.log("Payload: %s", payload);
   const VERSION = 1;
 
   // [√] gets: current LZ gas.
@@ -49,7 +49,7 @@ export default async function traverseChains(inputAmount, fromChain, endpointId)
     );
   }
   // [√] gets: adapter parameters.
-  console.log("Current LZ Gas from contract is", number);
+  console.log("LZ Gas: %s", number);
   const parameters = web3.utils.encodePacked(
     { value: VERSION, type: "uint16" },
     { value: number, type: "uint256" }
@@ -73,13 +73,13 @@ export default async function traverseChains(inputAmount, fromChain, endpointId)
       "failed"
     );
   } else {
-    console.log("Estimated fees are", payableAmount);
+    console.log("Estimated Fees: %s", payableAmount);
   }
 
   // [√] gets: gas estimate
   let estimatedGas;
   await web3.eth.getGasPrice().then((result) => {
-    console.log("Estimated gas is", web3.utils.fromWei(result, "ether"));
+    console.log("Estimated Gas: %s", web3.utils.fromWei(result, "ether"));
     estimatedGas = result;
   });
 
