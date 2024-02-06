@@ -7,7 +7,7 @@ import { injected } from "config/constants/wallets";
 import { BLUE } from "@/config";
 import { Header } from "@/components/Header";
 // import { useWeb3Modal } from '@web3modal/ethers/react'
-// import {  useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
+// import { useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 export default function Bridge() {
   const { account, activate } = useActiveWeb3React();

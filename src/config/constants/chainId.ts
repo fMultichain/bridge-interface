@@ -10,6 +10,7 @@
 export enum ChainId {
   BASE = 8453,
   FANTOM = 250,
+  MANTLE = 5000,
   ARBITRUM = 42161,
   AVALANCHE = 43114,
 }
@@ -43,12 +44,12 @@ const avalanche = {
   rpcUrl: "https://rpc.ankr.com/avalanche"
 }
 
-// const mantle = {
-//   chainId: ChainId.MANTLE,
-//   name: 'Mantle',
-//   currency: 'MNT',
-//   explorerUrl: 'https://mantlescan.info',
-//   rpcUrl: RPC[ChainId.MANTLE]
-// }
+const mantle = {
+  chainId: ChainId.MANTLE,
+  name: 'Mantle',
+  currency: 'MNT',
+  explorerUrl: 'https://mantlescan.info',
+  rpcUrl: "https://rpc.ankr.com/mantle"
+}
 
-export const chains = [base, fantom, arbitrum, avalanche]
+export const chains = [base, mantle, fantom, arbitrum, avalanche]

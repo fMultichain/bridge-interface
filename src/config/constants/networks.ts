@@ -2,6 +2,7 @@ import { ChainId } from "./chainId";
 // import { useActiveWeb3React } from 'services/web3'
 export enum SupportedChainId {
   BASE = ChainId.BASE,
+  MANTLE = ChainId.MANTLE,
   FANTOM = ChainId.FANTOM,
   AVALANCHE = ChainId.AVALANCHE,
   ARBITRUM = ChainId.ARBITRUM,
@@ -13,6 +14,7 @@ export const ChainColor = {
   [ChainId.ARBITRUM]: "#4698FA",
   // TODO
   [ChainId.BASE]: "#FFFFFF",
+  [ChainId.MANTLE]: "#FFFFFF",
 };
 
 export const ChainName: any = {
@@ -20,20 +22,15 @@ export const ChainName: any = {
   [ChainId.ARBITRUM]: "ARB",
   [ChainId.AVALANCHE]: "AVAX",
   [ChainId.BASE]: "BASE",
+  [ChainId.MANTLE]: "MANTLE",
 };
 
 export const NetworkName: any = {
   [ChainId.FANTOM]: "Fantom Opera",
+  [ChainId.MANTLE]: "Mantle",
   [ChainId.ARBITRUM]: "Arbitrum One",
   [ChainId.AVALANCHE]: "Avalanche",
   [ChainId.BASE]: "Coinbase",
-};
-
-export const ChainLogo = {
-  [ChainId.FANTOM]: "/images/networks/fantom-white.svg",
-  [ChainId.ARBITRUM]: "/images/networks/arbitrum.svg",
-  [ChainId.AVALANCHE]: "/images/networks/avalanche.svg",
-  [ChainId.BASE]: "/images/networks/base.svg",
 };
 
 export function getChainLogoURL(chainId: number) {
@@ -49,19 +46,6 @@ export function getChainLogoURL(chainId: number) {
     ? (logoURL =
         "https://raw.githubusercontent.com/soulswapfinance/assets/prod/blockchains/arbitrum/assets")
     : "https://raw.githubusercontent.com/soulswapfinance/assets/prod/blockchains/fantom/assets";
-
-  return logoURL;
-}
-
-export function getChainLogo(chainId: number) {
-  let logoURL = "/images/networks/fantom-white.svg";
-  chainId == ChainId.FANTOM
-    ? (logoURL = "/images/networks/fantom-white.svg")
-    : chainId == ChainId.AVALANCHE
-    ? (logoURL = "/images/networks/avalanche.svg")
-    : chainId == ChainId.ARBITRUM
-    ? (logoURL = "/images/networks/arbitrum.svg")
-    : "/images/networks/fantom-white.svg";
 
   return logoURL;
 }

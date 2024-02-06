@@ -5,6 +5,7 @@ export const RPC = {
   [ChainId.ARBITRUM]: "https://rpc.ankr.com/arbitrum",
   [ChainId.FANTOM]: "https://rpc.ankr.com/fantom",
   [ChainId.AVALANCHE]: "https://rpc.ankr.com/avalanche",
+  [ChainId.MANTLE]: "https://rpc.ankr.com/mantle",
 };
 
 export const RPCS = {

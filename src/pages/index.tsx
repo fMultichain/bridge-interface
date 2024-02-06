@@ -8,12 +8,14 @@ import { BLUE, ChainColor, ChainId } from "config";
 import formatAddress from "functions/formatAddress";
 import { useWeb3Modal } from '@web3modal/ethers/react'
 import BridgeInteraction from "@/components/BridgeInteraction";
+import { useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 // import { getChainInfo } from "functions/getChainInfo";
 // import {  useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 const Home: NextPage = () => {
-  const { account, activate, chainId } = useActiveWeb3React();
+  const { activate, chainId } = useActiveWeb3React();
+  const { address } = useWeb3ModalAccount()
   const fontColor = ChainColor[chainId ?? ChainId.FANTOM];
   const { open } = useWeb3Modal()
 
@@ -59,8 +61,8 @@ const Home: NextPage = () => {
           }}
           onClick={() => open()}
         >
-          {account
-            ? `${formatAddress(account ?? "")}`
+          {address
+            ? `${formatAddress(address ?? "")}`
             : 'Connect Wallet'}
         </div>
         {/* @ts-ignore */}
