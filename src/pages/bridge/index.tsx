@@ -1,14 +1,21 @@
-import React from "react";
-// import Image from "next/image";
-// import type { NextPage } from "next";
+import React, { useEffect } from "react";
 import BridgeInteraction from "components/BridgeInteraction";
 import MetaHeader from "components/MetaHeader.tsx";
-// import useActiveWeb3React from "@/hooks/useActiveWeb3React";
-// import { WrapInteraction } from "~~/components/wrapper-ui/WrapInteraction";
+import useActiveWeb3React from "@/hooks/useActiveWeb3React";
+import { connectorLocalStorageKey } from "config/connectors/index";
+import { injected } from "config/constants/wallets";
 
 export default function Bridge() {
-  // const { account } = useActiveWeb3React()
-    // const [showBridge, setShowBridge] = useState(false);
+  const { account, activate } = useActiveWeb3React();
+    
+  useEffect(() => {
+      console.log(window.localStorage?.getItem(connectorLocalStorageKey));
+  
+      activate(injected, undefined, true).catch((error) => {
+        activate(injected);
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div
@@ -42,7 +49,7 @@ export default function Bridge() {
           }}
         >
           {/* @ts-ignore */}
-          <BridgeInteraction />
+          <BridgeInteraction account={account} />
         </div>
 
         {/* <div className={`grid grid-cols-1 flex-grow ${"sm:gap-36"}`} data-theme="exampleUi">
