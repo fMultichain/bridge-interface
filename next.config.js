@@ -6,7 +6,7 @@
 
 // Path: next.config.js
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   webpack: config => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding')

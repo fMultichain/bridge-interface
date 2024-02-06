@@ -18,22 +18,6 @@ export function getChainInfo(chainId: number, option: string) {
       : option == "SYMBOL"
       ? (output = "AVAX")
       : (output = "");
-  } else if (chainId == ChainId.BSC) {
-    option == "NETWORK"
-      ? (output = "Binance Smart Chain")
-      : option == "NAME"
-      ? (output = "Binance")
-      : option == "SYMBOL"
-      ? (output = "BSC")
-      : (output = "");
-  } else if (chainId == ChainId.MATIC) {
-    option == "NETWORK"
-      ? (output = "Polygon (Matic)")
-      : option == "NAME"
-      ? (output = "Polygon")
-      : option == "SYMBOL"
-      ? (output = "MATIC")
-      : (output = "");
   } else if (chainId == ChainId.BASE) {
     option == "NETWORK"
       ? (output = "Base")

@@ -1,25 +1,21 @@
 import { ChainId } from "./chainId";
 // import { useActiveWeb3React } from 'services/web3'
 export enum SupportedChainId {
-  // ETHEREUM = ChainId.ETHEREUM,
   BASE = ChainId.BASE,
-  BSC = ChainId.BSC,
   FANTOM = ChainId.FANTOM,
   AVALANCHE = ChainId.AVALANCHE,
   ARBITRUM = ChainId.ARBITRUM,
-  MATIC = ChainId.MATIC,
 }
 
 export const ChainColor = {
   [ChainId.FANTOM]: "#1969FF",
-  [ChainId.BSC]: "#F0B90B",
   [ChainId.AVALANCHE]: "#E84142",
   [ChainId.ARBITRUM]: "#4698FA",
   // TODO
   [ChainId.BASE]: "#FFFFFF",
 };
 
-export const ChainName = {
+export const ChainName: any = {
   [ChainId.FANTOM]: "FTM",
   [ChainId.ARBITRUM]: "ARB",
   [ChainId.AVALANCHE]: "AVAX",
@@ -41,12 +37,6 @@ export function getChainLogoURL(chainId: number) {
         "https://raw.githubusercontent.com/soulswapfinance/assets/prod/blockchains/fantom/assets")
     : chainId == ChainId.AVALANCHE
     ? (logoURL =
-        "https://raw.githubusercontent.com/soulswapfinance/assets/prod/blockchains/ethereum/assets")
-    : chainId == ChainId.BSC
-    ? (logoURL =
-        "https://raw.githubusercontent.com/soulswapfinance/assets/prod/blockchains/binance/assets")
-    : chainId == ChainId.MATIC
-    ? (logoURL =
         "https://raw.githubusercontent.com/soulswapfinance/assets/prod/blockchains/polygon/assets")
     : chainId == ChainId.ARBITRUM
     ? (logoURL =
@@ -62,10 +52,6 @@ export function getChainLogo(chainId: number) {
     ? (logoURL = "/images/networks/fantom-white.svg")
     : chainId == ChainId.AVALANCHE
     ? (logoURL = "/images/networks/avalanche.svg")
-    : chainId == ChainId.BSC
-    ? (logoURL = "/images/networks/binance.svg")
-    : chainId == ChainId.MATIC
-    ? (logoURL = "/images/networks/polygon.svg")
     : chainId == ChainId.ARBITRUM
     ? (logoURL = "/images/networks/arbitrum.svg")
     : "/images/networks/fantom-white.svg";

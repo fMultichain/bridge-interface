@@ -1,20 +1,54 @@
+// import { RPC } from "./rpc"
+
+// export const ChainId = {
+//   BASE: 8453,
+//   FANTOM: 250,
+//   ARBITRUM: 42161,
+//   AVALANCHE: 43114,
+// }
+
 export enum ChainId {
-  // ETHEREUM = 1,
   BASE = 8453,
-  MATIC = 137,
   FANTOM = 250,
-  BSC = 56,
   ARBITRUM = 42161,
   AVALANCHE = 43114,
-  // MOONRIVER = 1285,
-  // XDAI = 100,
-  // HARMONY = 1666600000,
-  // OKEX = 66,
-  // OKEX_TESTNET = 65,
-  // CELO = 42220,
-  // PALM = 11297108109,
-  // FUSE = 122,
-  // TELOS = 40,
-  // HARDHAT = 31337,
-  // MOONBEAM = 1284,
 }
+
+const base = {
+  chainId: ChainId.BASE,
+  name: 'Coinbase',
+  currency: 'ETH',
+  explorerUrl: 'https://basescan.org',
+  rpcUrl: "https://rpc.ankr.com/base"
+}
+const fantom = {
+  chainId: ChainId.FANTOM,
+  name: 'Fantom Opera',
+  currency: 'FTM',
+  explorerUrl: 'https://ftmscan.com',
+  rpcUrl: "https://rpc.ankr.com/fantom"
+}
+const arbitrum = {
+  chainId: ChainId.ARBITRUM,
+  name: 'Arbitrum',
+  currency: 'ETH',
+  explorerUrl: 'https://arbiscan.io',
+  rpcUrl:"https://rpc.ankr.com/arbitrum"
+}
+const avalanche = {
+  chainId: ChainId.AVALANCHE,
+  name: 'Avalanche',
+  currency: 'AVAX',
+  explorerUrl: 'https://snowtrace.io',
+  rpcUrl: "https://rpc.ankr.com/avalanche"
+}
+
+// const mantle = {
+//   chainId: ChainId.MANTLE,
+//   name: 'Mantle',
+//   currency: 'MNT',
+//   explorerUrl: 'https://mantlescan.info',
+//   rpcUrl: RPC[ChainId.MANTLE]
+// }
+
+export const chains = [base, fantom, arbitrum, avalanche]

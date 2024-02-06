@@ -6,7 +6,6 @@ import {
   ChainName,
   ENDPOINT_ID,
   LZFMULTI_ADDRESS,
-  // LZFMULTI_ADDRESS,
 } from "config/constants";
 import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import traverseChains from "@/functions/traverseChains";
@@ -14,7 +13,7 @@ import { NextPage } from "next";
 import { useTokenBalance } from "@/hooks/useTokenBalance";
 import { formatNumber } from "@/functions/formatNumber";
 
-async function useGetBalance(account, chainId) {
+async function useGetBalance(account: any, chainId: ChainId) {
   const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
   console.log('balance = ' + balance)
   // setBalance(balance)
@@ -39,7 +38,7 @@ const BridgeInteraction: NextPage = () => {
   const [inputAmount, setAmount] = useState(0);
   const chains = toChains.filter((chain: ChainId) => chain !== toChain);
 
-  useGetBalance(account, chainId).then((balance) => {
+  useGetBalance(account, fromChain).then((balance) => {
     if (account && !triedBalance) {
       setTriedBalance(true)
       setBalance(balance);
@@ -48,7 +47,7 @@ const BridgeInteraction: NextPage = () => {
 
   {/* [√] SHOW BALANCE */ }
   const NumericInput = () => {
-    const handleInput = (inputAmount) => {
+    const handleInput = (inputAmount: any) => {
       setAmount(inputAmount)
       console.log('inputAmount: %s', inputAmount.toString())
     }

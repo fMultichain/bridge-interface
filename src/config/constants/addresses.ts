@@ -1,5 +1,7 @@
 // import { ChainMap } from "~~/types/ChainMap";
 
+import { ChainId } from "./chainId";
+
 export const FMULTI_ADDRESS = {
   250: "0x6CEbb8cD66Fca7E6aca65841Ae3A04B7884F4de8",
 };
@@ -25,6 +27,6 @@ export const LZFMULTI_ADDRESS = {
   250: "0xF386eB6780a1e875616b5751794f909095283860",
   8453: "0x7e51ad847cdf8729efc97cfa6e8afa4d658cb85b",
   42161: "0x7c911fa664ceb8fc2618c6f50507ab126e87de1a",
-  43114: "0x67a1fd5f393e9ceee4fb4739d73bf75c1efb9e40",
+  [ChainId.AVALANCHE]: "0x67a1fd5f393e9ceee4fb4739d73bf75c1efb9e40",
   // mantle: "0x7e51ad847cdf8729efc97cfa6e8afa4d658cb85b"
 };

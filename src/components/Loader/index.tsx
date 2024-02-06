@@ -33,6 +33,7 @@ export default function Loader({
   [k: string]: any;
 }) {
   return (
+    // @ts-ignore
     <StyledSVG
       viewBox="0 0 24 24"
       fill="none"
