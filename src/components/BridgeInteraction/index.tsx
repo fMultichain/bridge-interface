@@ -7,24 +7,11 @@ import {
   LZFMULTI_ADDRESS,
   // LZFMULTI_ADDRESS,
 } from "config/constants";
-// import { formatNumber } from "functions/formatNumber";
-// import { useTokenBalance } from "hooks/useTokenBalance";
 import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import traverseChains from "@/functions/traverseChains";
 import { NextPage } from "next";
 import { useTokenBalance } from "@/hooks/useTokenBalance";
 import { formatNumber } from "@/functions/formatNumber";
-
-
-
-// after eagerly trying injected, if the network connect ever isn't active or in an error state, activate it
-// useEffect(() => {
-//   if (!triedBalance) {
-//     setTriedBalance(true)
-//     // setBalance(_balance)
-//     getBalance(account, chainId);
-//   }
-// }, [triedBalance, balance]);
 
 async function useGetBalance(account, chainId) {
   const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
@@ -36,6 +23,7 @@ async function useGetBalance(account, chainId) {
 
 const BridgeInteraction: NextPage = () => {
   const { account, chainId } = useActiveWeb3React();
+  
   // console.log('account: %s', account)
   const fromChain: ChainId = chainId as ChainId;
   const toChains = [

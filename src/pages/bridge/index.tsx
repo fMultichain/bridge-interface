@@ -4,12 +4,13 @@ import MetaHeader from "components/MetaHeader.tsx";
 import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import { connectorLocalStorageKey } from "config/connectors/index";
 import { injected } from "config/constants/wallets";
+import { BLUE } from "@/config";
 
 export default function Bridge() {
   const { account, activate } = useActiveWeb3React();
-    
+  
   useEffect(() => {
-      console.log(window.localStorage?.getItem(connectorLocalStorageKey));
+    console.log(window.localStorage?.getItem(connectorLocalStorageKey));
   
       activate(injected, undefined, true).catch((error) => {
         activate(injected);
@@ -21,8 +22,8 @@ export default function Bridge() {
     <div
     style={{
       display: 'grid',
-      height: '100rem',
-      background: 'black'
+      // height: '100rem',
+      backgroundColor: "-moz-initial"
     }}
     >
       {/* @ts-ignore: TODO */}
@@ -41,10 +42,10 @@ export default function Bridge() {
         <div
           className="grids text-center text-2xl font-bold justify-center rounded-lg border-8 p-0 m-1.5"
           style={{
-            borderTopColor: "#005AFF", // BLUE
-            borderLeftColor: "#005AFF", // BLUE
-            borderRightColor: "#005AFF", // BLUE
-            borderBottomColor: "#005AFF", // BLUE
+            borderTopColor: BLUE, // BLUE
+            borderLeftColor: BLUE, // BLUE
+            borderRightColor: BLUE, // BLUE
+            borderBottomColor: BLUE, // BLUE
             fontWeight: "bold",
           }}
         >
