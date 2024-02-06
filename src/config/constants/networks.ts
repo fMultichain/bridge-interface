@@ -2,38 +2,35 @@ import { ChainId } from "./chainId";
 // import { useActiveWeb3React } from 'services/web3'
 export enum SupportedChainId {
   // ETHEREUM = ChainId.ETHEREUM,
-  //   TELOS = ChainId.TELOS,
   BASE = ChainId.BASE,
   BSC = ChainId.BSC,
   FANTOM = ChainId.FANTOM,
   AVALANCHE = ChainId.AVALANCHE,
   ARBITRUM = ChainId.ARBITRUM,
-  //   MOONRIVER = ChainId.MOONRIVER,
   MATIC = ChainId.MATIC,
 }
 
 export const ChainColor = {
-  // [ChainId.ETHEREUM]: "#627EEA",
   [ChainId.FANTOM]: "#1969FF",
   [ChainId.BSC]: "#F0B90B",
   [ChainId.AVALANCHE]: "#E84142",
   [ChainId.ARBITRUM]: "#4698FA",
-  [ChainId.MATIC]: "#8247E5",
+  // TODO
+  [ChainId.BASE]: "#FFFFFF",
 };
 
-export enum ChainName {
-  FTM = 250,
-  BASE = 8453,
-  ARB = 42161,
-  AVAX = 43114,
-}
+export const ChainName = {
+  [ChainId.FANTOM]: "FTM",
+  [ChainId.ARBITRUM]: "ARB",
+  [ChainId.AVALANCHE]: "AVAX",
+  [ChainId.BASE]: "BASE",
+};
 
 export const ChainLogo = {
-  // [ChainId.ETHEREUM]: "/images/networks/ethereum-white.svg",
   [ChainId.FANTOM]: "/images/networks/fantom-white.svg",
   [ChainId.ARBITRUM]: "/images/networks/arbitrum.svg",
   [ChainId.AVALANCHE]: "/images/networks/avalanche.svg",
-  [ChainId.MATIC]: "/images/networks/polygon.svg",
+  [ChainId.BASE]: "/images/networks/base.svg",
 };
 
 export function getChainLogoURL(chainId: number) {
