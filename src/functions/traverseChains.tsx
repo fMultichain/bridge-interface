@@ -6,7 +6,7 @@ import {
 } from "@/config";
 import Web3 from "web3";
 
-export default async function traverseChains(amount, fromChain, endpointId) {
+export default async function traverseChains(inputAmount, fromChain, endpointId) {
   // web3
   const web3 = new Web3(window.ethereum);
 
@@ -28,7 +28,8 @@ export default async function traverseChains(amount, fromChain, endpointId) {
 
   // const balance = await tokenContract.methods.balanceOf(accounts[0]).call();
   // console.log("balance: %s", balance);
-  console.log("amount: %s", amount);
+  console.log("inputAmount: %s", inputAmount);
+  const amount = inputAmount * 1E18
 
   // bytes to send
   const payload = web3.eth.abi.encodeParameters(

@@ -47,7 +47,7 @@ const BridgeInteraction: NextPage = () => {
   const [toChain, setToChain] = useState(toChains[0]);
   const [triedBalance, setTriedBalance] = useState(false)
   const [balance, setBalance] = useState('0');
-  const [amount, setAmount] = useState('0');
+  const [inputAmount, setAmount] = useState(0);
   const chains = toChains.filter((chain: ChainId) => chain !== toChain);
 
   useGetBalance(account, chainId).then((balance) => {
@@ -63,9 +63,9 @@ const BridgeInteraction: NextPage = () => {
       setAmount(inputAmount)
       console.log('inputAmount: %s', inputAmount.toString())
     }
-    
+
     const handleMax = () => {
-      setAmount(balance)
+      setAmount(Number(balance) / 1E18)
       console.log('max: %s', balance.toString())
     }
 
@@ -90,42 +90,45 @@ const BridgeInteraction: NextPage = () => {
             color: "#FFFFFF",
           }}
         >
-      <input
-          value={amount}
-          type="number"
-          placeholder="Enter amount"
-          onChange={(e) => handleInput(e.target.value)}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            border: "4px solid",
-            borderRadius: "10px",
-            padding: "8px 4px",
-            fontWeight: "bold",
-            backgroundColor: "#005AFF", // BLUE
-            color: "#FFFFFF",
+          <input
+            value={inputAmount}
+            type="number"
+            placeholder="Enter Amount"
+            onChange={(e) => handleInput(e.target.value)}
+            pattern="^[0-9]*[.,]?[0-9]*$"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              border: "4px solid",
+              borderRadius: "10px",
+              padding: "8px 4px",
+              fontWeight: "bold",
+              backgroundColor: "#005AFF", // BLUE
+              color: "#FFFFFF",
             }}
-      />
+          />
+          <div
+            style={{
+              backgroundColor: "#005AFF", // BLUE
+              border: '2px solid',
+              borderRadius: "24px",
+              color: "#FFFFFF",
+              margin: "4px",
+              paddingTop: '0.25rem',
+              paddingLeft: '1.5rem',
+              paddingRight: '1.5rem',
+            }}
+            onClick={() => handleMax()}
+          >
+            {'MAX'}
+          </div>
+        </div>
         <div
           style={{
-            backgroundColor: "#005AFF", // BLUE
-            border: '2px solid',
-            borderRadius: "24px",
-            color: "#FFFFFF",
-            margin: "4px",
-            paddingTop: '0.25rem',
-            paddingLeft: '1.5rem',
-            paddingRight: '1.5rem',
-          }}
-          onClick={() => handleMax()}
-        >
-          {'MAX'}
-        </div>
-        </div>
-        <div
-          style={{
+            display: 'flex',
+            justifyContent: 'center',
             color: '#FFFFFF',
-            marginTop: '12px'
+            marginTop: '12px',
           }}
         >
           {`Balance: ${!balance || Number(balance) == 0
@@ -192,8 +195,8 @@ const BridgeInteraction: NextPage = () => {
     );
   };
 
-  // // async function TraverseButton(amount) {
-  // const TraverseButton = (amount) => {
+  // // async function TraverseButton(inputAmount) {
+  // const TraverseButton = (inputAmount) => {
   //   return (
 
   //   );
@@ -263,13 +266,13 @@ const BridgeInteraction: NextPage = () => {
                 backgroundColor: "#005AFF", // BLUE
                 color: "#FFFFFF",
               }}
-              // onClick={() => handleTraverse(Number(amount), toChain, fromChain)}
-              // onClick={async () => await handleTraverseThis(account, Number(amount), toChain, fromChain)}
+              // onClick={() => handleTraverse(Number(inputAmount), toChain, fromChain)}
+              // onClick={async () => await handleTraverseThis(account, Number(inputAmount), toChain, fromChain)}
               onClick={async () =>
-                await traverseChains(Number(amount), fromChain, ENDPOINT_ID[toChain])
+                await traverseChains(Number(inputAmount), fromChain, ENDPOINT_ID[toChain])
               }
             >
-              {`Bridge to ${ChainName[toChain]}`}
+              {`Bridge ${formatNumber(inputAmount)} to ${ChainName[toChain]}`}
             </div>
           </div>
         </div>
