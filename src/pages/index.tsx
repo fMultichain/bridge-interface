@@ -54,14 +54,14 @@ const Home: NextPage = () => {
             justifyContent: "center",
             border: "4px solid",
             borderRadius: "5px",
-            padding: "20px",
+            padding: "8px",
             color: "#FFFFFF",
           }}
           onClick={() => open()}
         >
           {account
             ? `${formatAddress(account ?? "")}`
-            : "Wallet Disconnected"}
+            : 'Connect Wallet'}
         </div>
         {/* @ts-ignore */}
         <BridgeInteraction />
