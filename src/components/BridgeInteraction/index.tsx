@@ -35,6 +35,7 @@ const BridgeInteraction: NextPage = () => {
   const toChains = [
     ChainId.FANTOM,
     ChainId.BASE,
+    ChainId.MANTLE,
     ChainId.ARBITRUM,
     ChainId.AVALANCHE,
   ].filter((chain: ChainId) => chain !== fromChain);
