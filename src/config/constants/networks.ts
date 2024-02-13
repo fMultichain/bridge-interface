@@ -1,5 +1,5 @@
 import { ChainId } from "./chainId";
-// import { useActiveWeb3React } from 'services/web3'
+
 export enum SupportedChainId {
   BASE = ChainId.BASE,
   MANTLE = ChainId.MANTLE,
@@ -18,6 +18,7 @@ export const ChainColor = {
 };
 
 export const ChainName: any = {
+  [ChainId.ETHEREUM]: "Change Network",
   [ChainId.FANTOM]: "FTM",
   [ChainId.ARBITRUM]: "ARB",
   [ChainId.AVALANCHE]: "AVAX",
@@ -26,6 +27,7 @@ export const ChainName: any = {
 };
 
 export const NetworkName: any = {
+  [ChainId.ETHEREUM]: "Change Network",
   [ChainId.FANTOM]: "Fantom Opera",
   [ChainId.MANTLE]: "Mantle",
   [ChainId.ARBITRUM]: "Arbitrum One",

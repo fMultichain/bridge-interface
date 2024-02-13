@@ -8,6 +8,7 @@
 // }
 
 export enum ChainId {
+  ETHEREUM = 1,
   BASE = 8453,
   FANTOM = 250,
   MANTLE = 5000,
@@ -15,6 +16,13 @@ export enum ChainId {
   AVALANCHE = 43114,
 }
 
+const ethereum = {
+  chainId: ChainId.ETHEREUM,
+  name: 'Ethereum',
+  currency: 'ETH',
+  explorerUrl: 'https://etherscan.io',
+  rpcUrl: "https://rpc.ankr.com/eth"
+}
 const base = {
   chainId: ChainId.BASE,
   name: 'Coinbase',
@@ -52,4 +60,4 @@ const mantle = {
   rpcUrl: "https://rpc.ankr.com/mantle"
 }
 
-export const chains = [base, mantle, fantom, arbitrum, avalanche]
+export const chains = [ethereum, base, mantle, fantom, arbitrum, avalanche]

@@ -9,25 +9,15 @@ import {
   LZFMULTI_ADDRESS,
   NetworkName,
 } from "config/constants";
-import useActiveWeb3React from "@/hooks/useActiveWeb3React";
 import traverseChains from "@/functions/traverseChains";
 import { NextPage } from "next";
-// import { useTokenBalance } from "@/hooks/useTokenBalance";
 import { formatNumber } from "@/functions/formatNumber";
 import { useWeb3Modal } from '@web3modal/ethers/react'
 import { useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers/react'
 import { BrowserProvider, Contract, formatUnits } from "ethers";
 
-// async function useGetBalance(account: any, chainId: ChainId) {
-//   const balance = await useTokenBalance(account, LZFMULTI_ADDRESS[chainId]);
-//   console.log('balance = ' + balance)
-//   return balance
-// }
-
 const BridgeInteraction: NextPage = () => {
-  const { account, chainId } = useActiveWeb3React();
-  const { address, isConnected } = useWeb3ModalAccount()
-
+  const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { open } = useWeb3Modal()
 
   // console.log('account: %s', account)
@@ -49,6 +39,7 @@ const BridgeInteraction: NextPage = () => {
 
   async function getBalance(address) {
     if (!isConnected) throw Error('User disconnected')
+    if (fromChain == ChainId.ETHEREUM) throw Error('Wrong Chain')
 
     const ethersProvider = new BrowserProvider(walletProvider)
     const signer = await ethersProvider.getSigner()
@@ -59,7 +50,7 @@ const BridgeInteraction: NextPage = () => {
   }
 
   // useCallback(async () => {
-    getBalance(address)
+    if (fromChain != ChainId.ETHEREUM) getBalance(address)
   // }, [])
 
   // useGetBalance(account, fromChain).then((balance) => {
@@ -237,7 +228,7 @@ const BridgeInteraction: NextPage = () => {
       <div className="flex flex-col w-full mx-5 sm:mx-8 2xl:mx-20">
         <div className="flex flex-col mt-6 px-7 py-8 bg-base-200 opacity-80 rounded-2xl shadow-lg border-4 border-[#005AFF]">
           <div
-            className={account ? `grid grid-cols-1 gap-4` : `mb-8`}
+            className={address ? `grid grid-cols-1 gap-4` : `mb-8`}
             style={{
               justifyContent: "center",
               marginTop: "2rem",

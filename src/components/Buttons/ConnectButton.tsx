@@ -1,12 +1,10 @@
 import { ChainName } from '@/config'
 import formatAddress from '@/functions/formatAddress'
-// import useActiveWeb3React from '@/hooks/useActiveWeb3React'
 import { useWeb3Modal } from '@web3modal/ethers/react'
 import {  useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 // import { BrowserProvider, Contract, formatUnits } from 'ethers'
 
 export default function ConnectButton() {
-  // const { account } = useActiveWeb3React()
   const { address, chainId } = useWeb3ModalAccount()
   const { open } = useWeb3Modal()
 

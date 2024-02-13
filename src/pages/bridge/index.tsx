@@ -6,11 +6,14 @@ import { connectorLocalStorageKey } from "config/connectors/index";
 import { injected } from "config/constants/wallets";
 import { BLUE } from "@/config";
 import { Header } from "@/components/Header";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 // import { useWeb3Modal } from '@web3modal/ethers/react'
 // import { useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 export default function Bridge() {
-  const { account, activate } = useActiveWeb3React();
+  const { activate } = useActiveWeb3React();
+  const { address } = useWeb3ModalAccount()
+
   // const { open } = useWeb3Modal()
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function Bridge() {
           }}
         >
           {/* @ts-ignore */}
-          <BridgeInteraction account={account} />
+          <BridgeInteraction account={address} />
         </div>
       </div>
     </div>
