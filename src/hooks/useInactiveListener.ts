@@ -29,13 +29,17 @@ function useInactiveListener(suppress = false) {
           });
         }
       };
-
+      
+      // @ts-ignore
       ethereum.on("chainChanged", handleChainChanged);
+      // @ts-ignore
       ethereum.on("accountsChanged", handleAccountsChanged);
-
+      
       return () => {
         if (ethereum.removeListener) {
+          // @ts-ignore
           ethereum.removeListener("chainChanged", handleChainChanged);
+          // @ts-ignore
           ethereum.removeListener("accountsChanged", handleAccountsChanged);
         }
       };
