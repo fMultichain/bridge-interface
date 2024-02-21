@@ -1,6 +1,4 @@
-
-
-    import { FC } from 'react'
+import { FC } from 'react'
 
 export interface Props {
     fillPrimary: string
