@@ -26,9 +26,9 @@ const HeaderBar = () => {
 
     // const typeStyle = `justify-center text-center w-full border border-[${BLUE}] rounded p-2`
 
-    const bridgeRoute = useCallback(() => {
-        router.push(`/bridge`)
-    }, [])
+    // const bridgeRoute = useCallback(() => {
+    //     router.push(`/bridge`)
+    // }, [])
     const homeRoute = useCallback(() => {
         router.push(`/`)
     }, [])
@@ -160,13 +160,13 @@ const HeaderBar = () => {
                         <Divider />
                         {/* </button> */}
                         {/* @ts-ignore */}
-                        <Image
+                        {/* <Image
                             src="/assets/black-and-blue-header.png"
                             height={80}
                             width={240}
                             alt="Black and Blue Header"
                             onClick={homeRoute}
-                        />
+                        /> */}
                         {/* <div
                             className={classNames(
                                 `hover:border-2 hover:border-[${BLUE}] flex w-full justify-center rounded p-0.5`,

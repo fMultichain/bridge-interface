@@ -5,29 +5,13 @@ import { BLUE } from "@/config";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 export default function Bridge() {
-  // const { activate } = useActiveWeb3React();
   const { address } = useWeb3ModalAccount()
-
-  // const { open } = useWeb3Modal()
-
-  // useEffect(() => {
-  //   console.log(window.localStorage?.getItem(connectorLocalStorageKey));
-  
-  //     activate(injected, undefined, true).catch((error) => {
-  //       activate(injected);
-  //       console.log(error);
-  //     });
-  // }, []);
 
   return (
     <div
     style={{
       display: 'grid',
       backgroundColor: BLUE,
-      // height: '100%',
-      // width: '100%',
-      // height: '100rem',
-      // backgroundColor: "-moz-initial"
     }}
     >
       {/* @ts-ignore: TODO */}
@@ -39,8 +23,6 @@ export default function Bridge() {
           rel="stylesheet"
         />
       </MetaHeader>
-      {/* @ts-ignore */}
-      {/* <Header /> */}
       <div
         className={`grid grid-cols-1 flex-grow`}
         data-theme="defaultPageStyle"

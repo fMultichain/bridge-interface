@@ -12,7 +12,7 @@ const DefaultLayout = ({ children }) => {
       <Main>{children}</Main>
       {/* <Popups /> */}
     {/* @ts-ignore */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }
