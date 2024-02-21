@@ -1,9 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useActiveWeb3React } from "hooks/useActiveWeb3React";
-import { useEffect } from "react";
-import { injected } from "config/constants/wallets";
-import { connectorLocalStorageKey } from "config/connectors/index";
 import { BLUE, ChainColor, ChainId } from "config";
 import formatAddress from "functions/formatAddress";
 import { useWeb3Modal } from '@web3modal/ethers/react'
@@ -14,19 +11,19 @@ import { useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalPro
 // import {  useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 const Home: NextPage = () => {
-  const { activate, chainId } = useActiveWeb3React();
+  const { chainId } = useActiveWeb3React();
   const { address } = useWeb3ModalAccount()
   const fontColor = ChainColor[chainId ?? ChainId.FANTOM];
   const { open } = useWeb3Modal()
 
-  useEffect(() => {
-    console.log(window.localStorage.getItem(connectorLocalStorageKey));
+  // useEffect(() => {
+  //   console.log(window.localStorage.getItem(connectorLocalStorageKey));
 
-    activate(injected, undefined, true).catch((error) => {
-      activate(injected);
-      console.log(error);
-    });
-  }, []);
+  //   activate(injected, undefined, true).catch((error) => {
+  //     activate(injected);
+  //     console.log(error);
+  //   });
+  // }, []);
 
   return (
     <div

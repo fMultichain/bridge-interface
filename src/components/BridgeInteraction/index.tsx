@@ -8,6 +8,7 @@ import {
   ENDPOINT_ID,
   LZFMULTI_ADDRESS,
   NetworkName,
+  RED,
 } from "config/constants";
 import traverseChains from "@/functions/traverseChains";
 import { NextPage } from "next";
@@ -38,19 +39,19 @@ const BridgeInteraction: NextPage = () => {
   const { walletProvider } = useWeb3ModalProvider()
 
   async function getBalance(address) {
-    if (!isConnected) throw Error('User disconnected')
+    // if (!isConnected) throw Error('User disconnected')
     if (fromChain == ChainId.ETHEREUM) throw Error('Wrong Chain')
 
     const ethersProvider = new BrowserProvider(walletProvider)
     const signer = await ethersProvider.getSigner()
     const TokenContract = new Contract(LZFMULTI_ADDRESS[chainId], ABI_ERC20, signer)
     const TokenBalance = await TokenContract.balanceOf(address)
-    setBalance(TokenBalance)
-    console.log('tokenBalance: %s', formatUnits(TokenBalance, 18))
+    chainId && setBalance(TokenBalance)
+    // console.log('tokenBalance: %s', formatUnits(TokenBalance, 18))
   }
 
   // useCallback(async () => {
-    if (fromChain != ChainId.ETHEREUM) getBalance(address)
+    if (isConnected && fromChain != ChainId.ETHEREUM) getBalance(address)
   // }, [])
 
   // useGetBalance(account, fromChain).then((balance) => {
@@ -246,7 +247,7 @@ const BridgeInteraction: NextPage = () => {
                 borderColor: "#FFFFFF", // BLUE
                 padding: "8px 4px",
                 fontWeight: "bold",
-                backgroundColor: BLUE, // BLUE
+                backgroundColor: isConnected ? BLUE : RED, // BLUE
                 color: "white",
                 fontSize: "18px",
                 gap: "1rem",
@@ -257,7 +258,7 @@ const BridgeInteraction: NextPage = () => {
               }
 
             >
-              {`From: ${NetworkName[fromChain]}`}
+              {isConnected ? `From: ${NetworkName[fromChain] ?? 'Invalid Chain'}` : `Disconnected`}
             </div>
             {/* Shows: Chain Selector */}
             {/* <div
