@@ -14,19 +14,19 @@ import { useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalPro
 // import {  useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 const Home: NextPage = () => {
-  const { activate, chainId } = useActiveWeb3React();
+  const { chainId } = useActiveWeb3React();
   const { address } = useWeb3ModalAccount()
   const fontColor = ChainColor[chainId ?? ChainId.FANTOM];
   const { open } = useWeb3Modal()
 
-  useEffect(() => {
-    console.log(window.localStorage.getItem(connectorLocalStorageKey));
+  // useEffect(() => {
+  //   console.log(window.localStorage.getItem(connectorLocalStorageKey));
 
-    activate(injected, undefined, true).catch((error) => {
-      activate(injected);
-      console.log(error);
-    });
-  }, []);
+  //   activate(injected, undefined, true).catch((error) => {
+  //     activate(injected);
+  //     console.log(error);
+  //   });
+  // }, []);
 
   return (
     <div

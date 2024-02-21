@@ -11,19 +11,19 @@ import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 // import { useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 export default function Bridge() {
-  const { activate } = useActiveWeb3React();
+  // const { activate } = useActiveWeb3React();
   const { address } = useWeb3ModalAccount()
 
   // const { open } = useWeb3Modal()
 
-  useEffect(() => {
-    console.log(window.localStorage?.getItem(connectorLocalStorageKey));
+  // useEffect(() => {
+  //   console.log(window.localStorage?.getItem(connectorLocalStorageKey));
   
-      activate(injected, undefined, true).catch((error) => {
-        activate(injected);
-        console.log(error);
-      });
-  }, []);
+  //     activate(injected, undefined, true).catch((error) => {
+  //       activate(injected);
+  //       console.log(error);
+  //     });
+  // }, []);
 
   return (
     <div
