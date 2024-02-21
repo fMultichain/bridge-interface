@@ -1,5 +1,5 @@
 import "styles/globals.css";
-import type { AppProps } from "next/app";
+// import type { AppProps } from "next/app";
 // import { Web3Provider } from "@ethersproject/providers";
 import { Web3ReactProvider } from "@web3-react/core";
 import Web3ReactManager from "components/Web3ReactManager/index";

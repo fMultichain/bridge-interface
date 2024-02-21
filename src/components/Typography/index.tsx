@@ -67,7 +67,7 @@ const Typography: FC<TypographyProps> = forwardRef(
       component = 'div',
       className = 'currentColor',
       textColor = '',
-      clickable = false,
+      // clickable = false,
       children = [],
       onClick = undefined,
       ...rest

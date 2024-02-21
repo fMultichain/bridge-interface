@@ -1,9 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useActiveWeb3React } from "hooks/useActiveWeb3React";
-import { useEffect } from "react";
-import { injected } from "config/constants/wallets";
-import { connectorLocalStorageKey } from "config/connectors/index";
 import { BLUE, ChainColor, ChainId } from "config";
 import formatAddress from "functions/formatAddress";
 import { useWeb3Modal } from '@web3modal/ethers/react'

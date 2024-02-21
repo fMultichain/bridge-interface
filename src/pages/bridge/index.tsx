@@ -1,14 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import BridgeInteraction from "components/BridgeInteraction";
 import MetaHeader from "components/MetaHeader.tsx";
-// import useActiveWeb3React from "@/hooks/useActiveWeb3React";
-// import { connectorLocalStorageKey } from "config/connectors/index";
-import { injected } from "config/constants/wallets";
 import { BLUE } from "@/config";
-// import { Header } from "@/components/Header";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
-// import { useWeb3Modal } from '@web3modal/ethers/react'
-// import { useWeb3ModalAccount } from '@web3modal/ethers/react' // useWeb3ModalProvider,
 
 export default function Bridge() {
   // const { activate } = useActiveWeb3React();
